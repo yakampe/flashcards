@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/widgets/tag_selector.dart';
 
 import '../widgets/app_bar_actions.dart';
 class MainPage extends StatelessWidget {
@@ -10,10 +11,8 @@ class MainPage extends StatelessWidget {
       appBar: AppBar(
         title: const AppBarActions(),
       ),
-      body: Center(
-        child: Column(
-          children: const [Text('body')],
-        ),
+      body: const Center(
+        child: TagSelector(),
       ),
     );
   }
