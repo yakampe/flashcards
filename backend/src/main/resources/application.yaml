@@ -1,0 +1,12 @@
+mongodb:
+  database: 'objects'
+  connection:
+    string: 'mongodb://mongo:27017'
+server:
+  port: '8080'
+
+spring:
+  data:
+    mongodb:
+      host: 'mongo'
+      port: '27017'
