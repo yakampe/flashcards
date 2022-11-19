@@ -11,7 +11,7 @@ class QuestionCard extends StatefulWidget {
 }
 
 class _QuestionCardState extends State<QuestionCard> {
-  Offset offset = const Offset(-2,0);
+  Offset offset = Offset((MediaQueryData.fromWindow(WidgetsBinding.instance!.window).size.width / 2 / cardWidth + 0.5) * -1,0);
 
   @override
   void initState() {
@@ -33,17 +33,24 @@ class _QuestionCardState extends State<QuestionCard> {
       child: Card(
         elevation: 20,
         child: Container(
+          decoration: BoxDecoration(color: Colors.red),
           height: cardHeight,
           width: cardWidth,
           padding: const EdgeInsets.all(30),
           child: Column(
             children: [
-              Text('Question ${widget.flashCard.answer}'),
-              ElevatedButton(
-                onPressed: () {
-                  widget.onPress();
-                },
-                child: const Text('Show Answer'),
+              Expanded(
+                flex: 3,
+                child: Text('Question ${widget.flashCard.question}'),
+              ),
+              Expanded(
+                flex: 1,
+                child: ElevatedButton(
+                  onPressed: () {
+                    widget.onPress();
+                  },
+                  child: const Text('Show Answer'),
+                ),
               ),
             ],
           ),

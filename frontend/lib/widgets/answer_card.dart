@@ -45,7 +45,7 @@ class _AnswerCardState extends State<AnswerCard> {
 
   void throwCardAway(bool isCorrect) {
     setState(() {
-      offset = const Offset(2,0);
+      offset = Offset(MediaQueryData.fromWindow(WidgetsBinding.instance!.window).size.width / 2 / cardWidth + 0.5,0);
     });
     Future.delayed(const Duration(milliseconds: 500),() {
       widget.answer(isCorrect);

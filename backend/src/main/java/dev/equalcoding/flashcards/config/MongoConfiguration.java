@@ -15,7 +15,7 @@ import java.util.Collection;
 import java.util.Collections;
 
 @Configuration
-@EnableMongoRepositories(basePackages = "dev.equalcoding.objects")
+@EnableMongoRepositories(basePackages = "dev.equalcoding.flashcards")
 public class MongoConfiguration extends AbstractMongoClientConfiguration {
 
     @Bean
@@ -25,7 +25,7 @@ public class MongoConfiguration extends AbstractMongoClientConfiguration {
 
     @Override
     protected String getDatabaseName() {
-        return "objects";
+        return "flashcards";
     }
 
     @Override
@@ -39,6 +39,6 @@ public class MongoConfiguration extends AbstractMongoClientConfiguration {
 
     @Override
     public Collection<String> getMappingBasePackages() {
-        return Collections.singleton("dev.equalcoding.objects.repo");
+        return Collections.singleton("dev.equalcoding.flashcards.repo");
     }
 }
