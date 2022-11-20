@@ -19,7 +19,7 @@ class QuestionCard extends StatefulWidget {
 class _QuestionCardState extends State<QuestionCard>
     with TickerProviderStateMixin {
   Offset offset = Offset(
-      (MediaQueryData.fromWindow(WidgetsBinding.instance!.window).size.width /
+      (MediaQueryData.fromWindow(WidgetsBinding.instance.window).size.width /
                   2 /
                   cardWidth +
               0.5) *

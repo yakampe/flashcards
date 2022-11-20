@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/widgets/card_stack.dart';
+import 'package:frontend/widgets/card_stack_statistics.dart';
 
 import '../widgets/app_bar_actions.dart';
 class CardProcessScreen extends StatelessWidget {
@@ -15,40 +16,9 @@ class CardProcessScreen extends StatelessWidget {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          Expanded(
+          const Expanded(
             flex: 2,
-            child: Container(
-              decoration: BoxDecoration(color: Colors.red),
-              width: double.infinity,
-              child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
-                        Text('Current Card:'),
-                        Text('0 / 22'),
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
-                        Text('Correct Cards:'),
-                        Text('0'),
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
-                        Text('Incorrect Cards:'),
-                        Text('12'),
-                      ],
-                    )
-                  ],
-                ),
-              ),
-            ),
+            child: CardStackStatistics(),
           ),
           Expanded(
             flex: 5,

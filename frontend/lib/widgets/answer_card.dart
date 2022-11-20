@@ -136,7 +136,7 @@ class _AnswerCardState extends State<AnswerCard> with TickerProviderStateMixin {
   void throwCardAway(bool isCorrect) {
     setState(() {
       offset = Offset(
-          MediaQueryData.fromWindow(WidgetsBinding.instance!.window)
+          MediaQueryData.fromWindow(WidgetsBinding.instance.window)
                       .size
                       .width /
                   2 /
