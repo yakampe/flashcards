@@ -28,7 +28,10 @@ class _AnswerCardState extends State<AnswerCard> with TickerProviderStateMixin {
       vsync: this,
     );
     _controller.forward();
-    Future.delayed(const Duration(milliseconds: rotationAnimationDuration + rotationAnimationBuffer), () {
+    Future.delayed(
+        const Duration(
+            milliseconds: rotationAnimationDuration + rotationAnimationBuffer),
+        () {
       setState(() {
         widgetCreated = false;
       });
@@ -73,22 +76,56 @@ class _AnswerCardState extends State<AnswerCard> with TickerProviderStateMixin {
         padding: const EdgeInsets.all(30),
         child: Column(
           children: [
-            Text('Answer ${widget.flashCard.answer}'),
-            ElevatedButton(
-              onPressed: widgetCreated
-                  ? null
-                  : () {
-                      throwCardAway(true);
-                    },
-              child: const Text('correct'),
+            Expanded(
+              flex: 3,
+              child: SizedBox(
+                width: double.infinity,
+                child: Scrollbar(
+                  thumbVisibility: true,
+                  child: SingleChildScrollView(
+                    child: RichText(
+                      textAlign: TextAlign.center,
+                      softWrap: true,
+                      text: TextSpan(
+                          text: '${widget.flashCard.answer}'),
+                    ),
+                  ),
+                ),
+              ),
             ),
-            ElevatedButton(
-              onPressed: widgetCreated
-                  ? null
-                  : () {
-                      throwCardAway(false);
-                    },
-              child: const Text('incorrect'),
+            Expanded(
+              flex: 1,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      shape: const CircleBorder(),
+                      padding: const EdgeInsets.all(20),
+                      primary: Colors.green, // Background color
+                    ),
+                    onPressed: widgetCreated
+                        ? null
+                        : () {
+                            throwCardAway(true);
+                          },
+                    child: const Icon(Icons.check),
+                  ),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      shape: const CircleBorder(),
+                      padding: const EdgeInsets.all(20),
+                      primary: Colors.red, // Background color
+                    ),
+                    onPressed: widgetCreated
+                        ? null
+                        : () {
+                            throwCardAway(false);
+                          },
+                    child: const Icon(Icons.close),
+                  ),
+                ],
+              ),
             ),
           ],
         ),
