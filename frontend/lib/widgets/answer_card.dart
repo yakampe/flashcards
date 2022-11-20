@@ -1,43 +1,90 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:frontend/widgets/card_stack.dart';
 
 class AnswerCard extends StatefulWidget {
   final Function answer;
   final FlashCard flashCard;
-  const AnswerCard({Key? key, required this.answer, required this.flashCard}) : super(key: key);
+
+  const AnswerCard({Key? key, required this.answer, required this.flashCard})
+      : super(key: key);
 
   @override
   State<AnswerCard> createState() => _AnswerCardState();
 }
 
-class _AnswerCardState extends State<AnswerCard> {
-  Offset offset = const Offset(0,0);
+class _AnswerCardState extends State<AnswerCard> with TickerProviderStateMixin {
+  Offset offset = const Offset(0, 0);
+  bool widgetCreated = true;
+  late AnimationController _controller;
+
+  @override
+  void initState() {
+    _controller = AnimationController(
+      duration: const Duration(milliseconds: 500),
+      vsync: this,
+    );
+    _controller.forward();
+    Future.delayed(const Duration(milliseconds: 600), () {
+      setState(() {
+        widgetCreated = false;
+      });
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
+    return widgetCreated ? buildAnimatedFlip() : buildAnimatedSlide();
+  }
+
+  AnimatedBuilder buildAnimatedFlip() {
+    return AnimatedBuilder(
+      animation: _controller,
+      child: buildCard(),
+      builder: (BuildContext context, Widget? child) {
+        return Transform(
+          transform: Matrix4.rotationY(pi * (1 - _controller.value) / 2),
+          alignment: Alignment.center,
+          child: child,
+        );
+      },
+    );
+  }
+
+  AnimatedSlide buildAnimatedSlide() {
     return AnimatedSlide(
       curve: Curves.easeInOutBack,
       offset: offset,
       duration: const Duration(milliseconds: 750),
-      child: Card(
-        elevation: 20,
-        child: Container(
-          height: cardHeight,
-          width: cardWidth,
-          padding: const EdgeInsets.all(30),
-          child: Column(
-            children: [
-              Text('Answer ${widget.flashCard.answer}'),
-              ElevatedButton(
-                onPressed: () {throwCardAway(true);},
-                child: const Text('correct'),
-              ),
-              ElevatedButton(
-                onPressed: () {throwCardAway(false);},
-                child: const Text('incorrect'),
-              ),
-            ],
-          ),
+      child: buildCard(),
+    );
+  }
+
+  Card buildCard() {
+    return Card(
+      elevation: 20,
+      child: Container(
+        height: cardHeight,
+        width: cardWidth,
+        padding: const EdgeInsets.all(30),
+        child: Column(
+          children: [
+            Text('Answer ${widget.flashCard.answer}'),
+            ElevatedButton(
+              onPressed: () {
+                throwCardAway(true);
+              },
+              child: const Text('correct'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                throwCardAway(false);
+              },
+              child: const Text('incorrect'),
+            ),
+          ],
         ),
       ),
     );
@@ -45,9 +92,16 @@ class _AnswerCardState extends State<AnswerCard> {
 
   void throwCardAway(bool isCorrect) {
     setState(() {
-      offset = Offset(MediaQueryData.fromWindow(WidgetsBinding.instance!.window).size.width / 2 / cardWidth + 0.5,0);
+      offset = Offset(
+          MediaQueryData.fromWindow(WidgetsBinding.instance!.window)
+                      .size
+                      .width /
+                  2 /
+                  cardWidth +
+              0.5,
+          0);
     });
-    Future.delayed(const Duration(milliseconds: 500),() {
+    Future.delayed(const Duration(milliseconds: 500), () {
       widget.answer(isCorrect);
     });
   }
