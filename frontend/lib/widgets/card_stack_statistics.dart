@@ -24,7 +24,7 @@ class _CardStackStatisticsState extends State<CardStackStatistics> {
   }
 
   Text buildLabel(String text) {
-    return Text(text, style: const TextStyle(fontWeight: FontWeight.bold));
+    return Text(text, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20));
   }
 
   @override
@@ -49,8 +49,8 @@ class _CardStackStatisticsState extends State<CardStackStatistics> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             buildColumnItem(const FaIcon(FontAwesomeIcons.clone),'$counter / $total'),
-            buildColumnItem(const FaIcon(FontAwesomeIcons.check),'$correct'),
-            buildColumnItem(const FaIcon(FontAwesomeIcons.xmark),'$incorrect'),
+            buildColumnItem(const FaIcon(FontAwesomeIcons.check, color: Colors.green,),'$correct'),
+            buildColumnItem(const FaIcon(FontAwesomeIcons.xmark, color: Colors.red,),'$incorrect'),
           ],
         ),
       ),
