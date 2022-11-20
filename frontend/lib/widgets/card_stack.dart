@@ -1,6 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:frontend/widgets/answer_card.dart';
 import 'package:frontend/widgets/question_card.dart';
+import 'package:http/http.dart' as http;
+import '../models/flash_card.dart';
 
 const double cardHeight = 250;
 const double cardWidth = 350;
@@ -18,37 +22,47 @@ class CardStack extends StatefulWidget {
   _CardStackState createState() => _CardStackState();
 }
 
-class FlashCard {
-  String question;
-  String answer;
-  bool? answeredCorrectly;
-
-  FlashCard(this.question, this.answer, [this.answeredCorrectly = false]);
-}
-
-enum FlashCardStage { question, answerConfirmation, answerProcess }
+enum FlashCardStage { question, answerConfirmation, answerProcess, loading }
 
 class _CardStackState extends State<CardStack> {
-  List<FlashCard> flashCards = getFlashCards();
+  List<FlashCard> flashCards = [];
   int currentCard = 0;
-  FlashCardStage flashCardStage = FlashCardStage.question;
+  FlashCardStage flashCardStage = FlashCardStage.loading;
+
+  @override
+  void initState() {
+    fetchFlashCards().then((value) => {
+          setState(() {
+            flashCards = value;
+            flashCardStage = FlashCardStage.question;
+          }),
+        });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        drawStage()
-      ],
+      children: [drawStage()],
     );
   }
 
-  static List<FlashCard> getFlashCards() {
-    return List.generate(2, (index) => FlashCard("q$index", "a$index"));
+  Future<List<FlashCard>> fetchFlashCards() async {
+    var uri = Uri.http('localhost:8080', 'api/flashcards/tags/${widget.tag}');
+    var response = await http.get(uri);
+
+    List<dynamic> list = json.decode(response.body);
+
+    return list.map((e) => FlashCard.fromJson(e)).toList();
   }
 
   Widget drawStage() {
     switch (flashCardStage) {
+      case FlashCardStage.loading:
+        {
+          return const Text('Loading...');
+        }
       case FlashCardStage.question:
         {
           return QuestionCard(
@@ -61,7 +75,7 @@ class _CardStackState extends State<CardStack> {
         }
       case FlashCardStage.answerProcess:
         {
-          if(flashCards[currentCard] == flashCards.last) {
+          if (flashCards[currentCard] == flashCards.last) {
             return const Text('End');
           }
           return Column(

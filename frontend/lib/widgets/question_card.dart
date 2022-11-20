@@ -3,6 +3,8 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:frontend/widgets/card_stack.dart';
 
+import '../models/flash_card.dart';
+
 class QuestionCard extends StatefulWidget {
   final Function onPress;
   final FlashCard flashCard;
@@ -76,7 +78,6 @@ class _QuestionCardState extends State<QuestionCard>
     return Card(
       elevation: 20,
       child: Container(
-        decoration: BoxDecoration(color: Colors.red),
         height: cardHeight,
         width: cardWidth,
         padding: const EdgeInsets.all(30),

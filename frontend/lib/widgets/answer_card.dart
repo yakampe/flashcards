@@ -3,6 +3,8 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:frontend/widgets/card_stack.dart';
 
+import '../models/flash_card.dart';
+
 class AnswerCard extends StatefulWidget {
   final Function answer;
   final FlashCard flashCard;
