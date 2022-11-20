@@ -30,7 +30,6 @@ class _QuestionCardState extends State<QuestionCard>
   late AnimationController _controller;
   double value = 0;
 
-
   @override
   void initState() {
     _controller = AnimationController(
@@ -64,7 +63,6 @@ class _QuestionCardState extends State<QuestionCard>
     );
   }
 
-
   AnimatedSlide buildAnimatedSlide() {
     return AnimatedSlide(
       curve: Curves.easeInOutBack,
@@ -85,15 +83,36 @@ class _QuestionCardState extends State<QuestionCard>
           children: [
             Expanded(
               flex: 3,
-              child: Text('Question ${widget.flashCard.question}'),
+              child: SizedBox(
+                width: double.infinity,
+                child: Scrollbar(
+                  thumbVisibility: true,
+                  child: SingleChildScrollView(
+                    child: RichText(
+                      textAlign: TextAlign.center,
+                      softWrap: true,
+                      text:
+                          TextSpan(text: 'Question ${widget.flashCard.question}'),
+                    ),
+                  ),
+                ),
+              ),
             ),
             Expanded(
               flex: 1,
-              child: ElevatedButton(
-                onPressed: isDestroyed
-                    ? null
-                    : () { showAnswer();},
-                child: const Text('Show Answer'),
+              child: Container(
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    shape: const CircleBorder(),
+                    padding: const EdgeInsets.all(20),
+                  ),
+                  onPressed: isDestroyed
+                      ? null
+                      : () {
+                          showAnswer();
+                        },
+                  child: const Icon(Icons.rotate_left_sharp),
+                ),
               ),
             ),
           ],
@@ -107,7 +126,10 @@ class _QuestionCardState extends State<QuestionCard>
       isDestroyed = true;
       _controller.forward();
     });
-    Future.delayed(const Duration(milliseconds: rotationAnimationDuration + rotationAnimationBuffer), () {
+    Future.delayed(
+        const Duration(
+            milliseconds: rotationAnimationDuration + rotationAnimationBuffer),
+        () {
       widget.onPress();
     });
   }
