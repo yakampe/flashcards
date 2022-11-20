@@ -1,7 +1,10 @@
 package dev.equalcoding.flashcards.rest;
 
-import dev.equalcoding.flashcards.models.ExampleObject;
-import dev.equalcoding.flashcards.repo.ExampleObjectRepo;
+import dev.equalcoding.flashcards.models.FlashCard;
+import dev.equalcoding.flashcards.models.FlashCardTag;
+import dev.equalcoding.flashcards.repo.FlashCardRepo;
+import dev.equalcoding.flashcards.repo.FlashCardTagRepo;
+import dev.equalcoding.flashcards.service.FlashCardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,19 +19,37 @@ import java.util.List;
 public class RestController {
 
     @Autowired
-    ExampleObjectRepo exampleObjectRepo;
+    FlashCardRepo flashCardRepo;
 
-    @GetMapping("add")
-    public ResponseEntity<Void> test() {
-        exampleObjectRepo.save(new ExampleObject("a", "b", "c"));
+    @Autowired
+    FlashCardService flashCardService;
+
+    @Autowired
+    FlashCardTagRepo flashCardTagRepo;
+
+    @PostMapping("flashcards")
+    public ResponseEntity<Void> addFlashCard(@RequestBody FlashCard flashCard) {
+        flashCardService.saveFlashCard(flashCard);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @GetMapping("get")
-    public ResponseEntity<List<ExampleObject>> get() {
-        List<ExampleObject> exampleObjects = new ArrayList<>();
-        exampleObjectRepo.findAll().forEach(exampleObjects::add);
-        return ResponseEntity.ok(exampleObjects);
+    @GetMapping("flashcards")
+    public ResponseEntity<List<FlashCard>> getAllFlashCards() {
+        List<FlashCard> flashCards = new ArrayList<>();
+        flashCardRepo.findAll().forEach(flashCards::add);
+        return ResponseEntity.ok(flashCards);
     }
+
+    @GetMapping("flashcards/tags/{tag}")
+    public ResponseEntity<List<FlashCard>> getFlashCardsByTag(@PathVariable String tag) {
+        return ResponseEntity.ok(flashCardRepo.findByTags(tag));
+    }
+
+
+    @GetMapping("tags")
+    public ResponseEntity<List<FlashCardTag>> getAllTags() {
+        return ResponseEntity.ok(flashCardTagRepo.findAll());
+    }
+
 
 }
