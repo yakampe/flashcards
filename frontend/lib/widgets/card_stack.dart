@@ -4,6 +4,8 @@ import 'package:frontend/widgets/question_card.dart';
 
 const double cardHeight = 250;
 const double cardWidth = 350;
+const int rotationAnimationDuration = 500;
+const int rotationAnimationBuffer = 50;
 
 class CardStack extends StatefulWidget {
   final String tag;

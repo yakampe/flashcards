@@ -32,7 +32,7 @@ class _QuestionCardState extends State<QuestionCard>
   @override
   void initState() {
     _controller = AnimationController(
-      duration: const Duration(milliseconds: 500),
+      duration: const Duration(milliseconds: rotationAnimationDuration),
       vsync: this,
     );
     super.initState();
@@ -67,7 +67,7 @@ class _QuestionCardState extends State<QuestionCard>
     return AnimatedSlide(
       curve: Curves.easeInOutBack,
       offset: offset,
-      duration: const Duration(milliseconds: 750),
+      duration: const Duration(milliseconds: 500),
       child: buildCard(),
     );
   }
@@ -89,7 +89,9 @@ class _QuestionCardState extends State<QuestionCard>
             Expanded(
               flex: 1,
               child: ElevatedButton(
-                onPressed: () { showAnswer();},
+                onPressed: isDestroyed
+                    ? null
+                    : () { showAnswer();},
                 child: const Text('Show Answer'),
               ),
             ),
@@ -104,7 +106,7 @@ class _QuestionCardState extends State<QuestionCard>
       isDestroyed = true;
       _controller.forward();
     });
-    Future.delayed(Duration(milliseconds: 500), () {
+    Future.delayed(const Duration(milliseconds: rotationAnimationDuration + rotationAnimationBuffer), () {
       widget.onPress();
     });
   }

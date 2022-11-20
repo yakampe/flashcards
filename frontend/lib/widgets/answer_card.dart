@@ -22,11 +22,11 @@ class _AnswerCardState extends State<AnswerCard> with TickerProviderStateMixin {
   @override
   void initState() {
     _controller = AnimationController(
-      duration: const Duration(milliseconds: 500),
+      duration: const Duration(milliseconds: rotationAnimationDuration),
       vsync: this,
     );
     _controller.forward();
-    Future.delayed(const Duration(milliseconds: 600), () {
+    Future.delayed(const Duration(milliseconds: rotationAnimationDuration + rotationAnimationBuffer), () {
       setState(() {
         widgetCreated = false;
       });
@@ -73,15 +73,19 @@ class _AnswerCardState extends State<AnswerCard> with TickerProviderStateMixin {
           children: [
             Text('Answer ${widget.flashCard.answer}'),
             ElevatedButton(
-              onPressed: () {
-                throwCardAway(true);
-              },
+              onPressed: widgetCreated
+                  ? null
+                  : () {
+                      throwCardAway(true);
+                    },
               child: const Text('correct'),
             ),
             ElevatedButton(
-              onPressed: () {
-                throwCardAway(false);
-              },
+              onPressed: widgetCreated
+                  ? null
+                  : () {
+                      throwCardAway(false);
+                    },
               child: const Text('incorrect'),
             ),
           ],
