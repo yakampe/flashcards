@@ -13,7 +13,7 @@ class MainPage extends StatelessWidget {
         title: const AppBarActions(),
       ),
       body: const Center(
-        child: CardStack(tag: 'tag',count: 5),
+        child: TagSelector(),
       ),
     );
   }

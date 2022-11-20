@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 
 class CardItem extends StatefulWidget {
-  final String text;
+  final String tag;
+  final Function selectAction;
 
-  const CardItem({Key? key, required this.text}) : super(key: key);
+  const CardItem({Key? key, required this.tag, required this.selectAction}) : super(key: key);
 
   @override
   _CardItemState createState() => _CardItemState();
 }
 
 class _CardItemState extends State<CardItem> {
-  double elevation = 5;
+  double elevation = 10;
 
   @override
   Widget build(BuildContext context) {
@@ -25,19 +26,21 @@ class _CardItemState extends State<CardItem> {
         focusColor: null,
         overlayColor: null,
         hoverColor: Colors.transparent,
-        onTap: () {},
+        onTap: () {
+          widget.selectAction(widget.tag);
+        },
         onHover: (isHover) {
           if (isHover) {
             setState(() {
-              elevation = 10;
+              elevation = 20;
             });
           } else {
             setState(() {
-              elevation = 2;
+              elevation = 10;
             });
           }
         },
-        child: Center(child: Text(widget.text)),
+        child: Center(child: Text(widget.tag)),
       ),
     );
   }
