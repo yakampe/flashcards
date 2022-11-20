@@ -17,12 +17,12 @@ services:
     container_name: flash-cards-be
     links:
       - mongo
-  # flutter:
-  #   build:
-  #     context: ./frontend
-  #     dockerfile: Dockerfile
-  #   ports:
-  #     - "5000:5000"
-  #   container_name: flash-cards-fe
+  flutter:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    container_name: flash-cards-fe
 volumes:
   db:
