@@ -8,9 +8,19 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class FlashCardTag {
     @Id
     String tag;
+    int count;
 
-    public FlashCardTag(String tag) {
+    public FlashCardTag(String tag, int count) {
         this.tag = tag;
+        this.count = count;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
     }
 
     public FlashCardTag() {

@@ -29,8 +29,8 @@ public class RestController {
     FlashCardTagRepo flashCardTagRepo;
 
     @PostMapping("flashcards")
-    public ResponseEntity<Void> addFlashCard(@RequestBody FlashCard flashCard) {
-        flashCardService.saveFlashCard(flashCard);
+    public ResponseEntity<Void> addFlashCards(@RequestBody List<FlashCard> flashCards) {
+        flashCards.forEach(flashCardService::saveFlashCard);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 

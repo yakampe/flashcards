@@ -7,6 +7,8 @@ import dev.equalcoding.flashcards.repo.FlashCardTagRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class FlashCardService {
 
@@ -21,7 +23,14 @@ public class FlashCardService {
 
     public void saveFlashCard(FlashCard flashCard) {
         flashCard.getTags().forEach(tag -> {
-            flashCardTagRepo.save(new FlashCardTag(tag));
+            Optional<FlashCardTag> existingTag = flashCardTagRepo.findById(tag);
+            if(existingTag.isPresent()) {
+                FlashCardTag flashCardTag = existingTag.get();
+                flashCardTag.setCount(flashCardTag.getCount() + 1);
+                flashCardTagRepo.save(flashCardTag);
+            } else {
+                flashCardTagRepo.save(new FlashCardTag(tag,1));
+            }
         });
         flashCardRepo.save(flashCard);
     }

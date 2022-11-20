@@ -1,0 +1,38 @@
+[
+    {
+        "question":"What does ECS stand for?",
+        "answer":"Elastic Container Service",
+        "tags": ["ECS","AWS"]
+    },  
+    {
+        "question":"What is the maximum runtime for a Lambda Function",
+        "answer":"15 minutes",
+        "tags": ["Lambda","AWS"]
+    },
+    {
+        "question":"What is the maximum amount of readers for an RDS Aurora in a single cluster",
+        "answer":"15 Readers is the maximum",
+        "tags": ["AWS","RDS"]
+    },
+    {
+        "question":"What languages does Lambda support natively",
+        "answer":"Java, Go, PowerShell, Node.js, C#, Python, Ruby, + Runtime API to allow using additional languages",
+        "tags": ["AWS","Lambda"]
+    },
+    {
+        "question":"What types of invocation does a Lambda have",
+        "answer":"Syncrhonous, Asynchronous, Event Source Mapping",
+        "tags": ["AWS","Lambda"]
+    },
+    {
+        "question":"What are resource-based policies meant for in the context of Lambdas",
+        "answer":"Resource-based policies are used to control which accounts and services can access the Lambda",
+        "tags": ["AWS","Lambda"]
+    },
+    
+    {
+        "question":"What do IAM roles define in the context of Lambdas",
+        "answer":"IAM roles control what the Lambda can access",
+        "tags": ["AWS","Lambda"]
+    }
+]
