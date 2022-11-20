@@ -44,7 +44,6 @@ class _CardStackState extends State<CardStack> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
       children: [drawStage()],
     );
   }

@@ -10,7 +10,8 @@ class CardStackBetweenCardStage extends StatefulWidget {
       : super(key: key);
 
   @override
-  State<CardStackBetweenCardStage> createState() => _CardStackBetweenCardStageState();
+  State<CardStackBetweenCardStage> createState() =>
+      _CardStackBetweenCardStageState();
 }
 
 class _CardStackBetweenCardStageState extends State<CardStackBetweenCardStage> {
@@ -20,24 +21,28 @@ class _CardStackBetweenCardStageState extends State<CardStackBetweenCardStage> {
   }
 
   Widget buildEndStage() {
-    return ElevatedButton(
-      style: ElevatedButton.styleFrom(
-          shape: const CircleBorder(),
-          padding: const EdgeInsets.all(20)
+    return Expanded(
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+            shape: const CircleBorder(), padding: const EdgeInsets.all(20)),
+        onPressed: () {
+          closePageStack();
+        },
+        child: const Icon(Icons.arrow_back),
       ),
-      onPressed: () {closePageStack();},
-      child: const Icon(Icons.arrow_back),
     );
   }
 
   Widget buildBetweenStage() {
-    return ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        shape: const CircleBorder(),
-        padding: const EdgeInsets.all(20)
+    return Expanded(
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+            shape: const CircleBorder(), padding: const EdgeInsets.all(20)),
+        onPressed: () {
+          widget.action();
+        },
+        child: const Icon(Icons.arrow_forward),
       ),
-      onPressed: () {widget.action();},
-      child: const Icon(Icons.arrow_forward),
     );
   }
 
