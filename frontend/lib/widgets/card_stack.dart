@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:frontend/widgets/answer_card.dart';
+import 'package:frontend/widgets/card_stack_between_card_stage.dart';
 import 'package:frontend/widgets/question_card.dart';
 import 'package:http/http.dart' as http;
 import '../models/flash_card.dart';
@@ -75,19 +76,7 @@ class _CardStackState extends State<CardStack> {
         }
       case FlashCardStage.answerProcess:
         {
-          if (flashCards[currentCard] == flashCards.last) {
-            return const Text('End');
-          }
-          return Column(
-            children: [
-              ElevatedButton(
-                onPressed: () {
-                  processCard();
-                },
-                child: const Text('Next Card'),
-              )
-            ],
-          );
+          return CardStackBetweenCardStage(action: processCard, isEnd: flashCards[currentCard] == flashCards.last);
         }
     }
   }
