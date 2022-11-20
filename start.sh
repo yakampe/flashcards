@@ -8,6 +8,8 @@ docker rmi flash-cards-java -f
 docker compose up -d
 
 #Send json
+sleep 5
+
 curl -i \
 -H "Accept: application/json" \
 -H "Content-Type:application/json" \
