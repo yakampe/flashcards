@@ -1,10 +1,12 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:frontend/state/card_process_state.dart';
 import 'package:frontend/widgets/answer_card.dart';
 import 'package:frontend/widgets/card_stack_between_card_stage.dart';
 import 'package:frontend/widgets/question_card.dart';
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
 import '../models/flash_card.dart';
 
 const double cardHeight = 250;
@@ -33,6 +35,8 @@ class _CardStackState extends State<CardStack> {
   @override
   void initState() {
     fetchFlashCards().then((value) => {
+          Provider.of<CardProcessState>(context, listen: false)
+              .setTotal(value.length),
           setState(() {
             flashCards = value;
             flashCardStage = FlashCardStage.question;
@@ -75,7 +79,9 @@ class _CardStackState extends State<CardStack> {
         }
       case FlashCardStage.answerProcess:
         {
-          return CardStackBetweenCardStage(action: processCard, isEnd: flashCards[currentCard] == flashCards.last);
+          return CardStackBetweenCardStage(
+              action: processCard,
+              isEnd: flashCards[currentCard] == flashCards.last);
         }
     }
   }
@@ -88,6 +94,11 @@ class _CardStackState extends State<CardStack> {
 
   void confirmAnswer(bool isCorrect) {
     setState(() {
+      isCorrect
+          ? Provider.of<CardProcessState>(context, listen: false)
+              .incrementCorrectCounter()
+          : Provider.of<CardProcessState>(context, listen: false)
+              .incrementIncorrectCounter();
       flashCardStage = FlashCardStage.answerProcess;
     });
   }
@@ -96,6 +107,7 @@ class _CardStackState extends State<CardStack> {
     setState(() {
       flashCardStage = FlashCardStage.question;
       currentCard += 1;
+      Provider.of<CardProcessState>(context, listen: false).incrementCounter();
     });
   }
 }
