@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/screens/main_page.dart';
+import 'package:frontend/screens/card_process_screen.dart';
+import 'package:frontend/screens/tag_selector_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,7 +17,10 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MainPage()
+      initialRoute: '/',
+      routes: {
+        '/' : (context) => const TagSelectorScreen(),
+      },
     );
   }
 }

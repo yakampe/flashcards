@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:frontend/screens/card_process_screen.dart';
 import 'package:frontend/widgets/card_item.dart';
 import 'package:http/http.dart' as http;
 
@@ -33,7 +34,12 @@ class _TagSelectorState extends State<TagSelector> {
   }
 
   selectAction(String tag) {
-    print(tag);
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => CardProcessScreen(tag: tag),
+      ),
+    );
   }
 
   @override
