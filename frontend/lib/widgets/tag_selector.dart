@@ -34,12 +34,13 @@ class _TagSelectorState extends State<TagSelector> {
   }
 
   selectAction(String tag) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => CardProcessScreen(tag: tag),
-      ),
-    );
+    Future.delayed(const Duration(milliseconds: 250), () {
+      Navigator.push(
+        context,
+        PageRouteBuilder(
+            pageBuilder: (_, __, ___) => CardProcessScreen(tag: tag)),
+      );
+    });
   }
 
   @override
