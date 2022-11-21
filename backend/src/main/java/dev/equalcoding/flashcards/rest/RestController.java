@@ -29,6 +29,14 @@ public class RestController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
+    @PostMapping("initiate")
+    public ResponseEntity<Void> initiateData(@RequestBody List<FlashCard> flashCards) {
+        if(flashCardService.getAllCards().size() == 0) {
+            flashCards.forEach(flashCardService::saveFlashCard);
+        }
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
     @GetMapping("flashcards")
     public ResponseEntity<List<FlashCard>> getAllFlashCards() {
         return ResponseEntity.ok(flashCardService.getAllCards());
