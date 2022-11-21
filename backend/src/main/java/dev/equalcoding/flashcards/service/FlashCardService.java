@@ -50,13 +50,8 @@ public class FlashCardService {
 
         allCards.addAll(flashCardRepo.findByTags(tag));
 
-
-//        logger.info(allCards.get(0).toString());
-//        logger.info("shuffling");
         Collections.shuffle(allCards, new Random());
-//        logger.info("finished shuffling");
-//
-//        logger.info(allCards.get(0).toString());
+
         if (count == 0 || count > allCards.size()) {
             return allCards;
         } else {
