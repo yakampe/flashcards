@@ -45,8 +45,7 @@ class _TagSelectorState extends State<TagSelector> {
 
   @override
   Widget build(BuildContext context) {
-    return GridView.count(
-      crossAxisCount: 4,
+    return Wrap(
       children: [
         ...tags.map(
           (e) => CardItem(

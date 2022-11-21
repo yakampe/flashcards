@@ -21,7 +21,7 @@ echo "Backend up and running"
 curl -i \
 -H "Accept: application/json" \
 -H "Content-Type:application/json" \
--X POST --data @./flash-cards.json "http://localhost:8080/api/flashcards"
+-X POST --data @./flash-cards.json "http://localhost:8080/api/initiate"
 
 open http://localhost:5000/
 start http://localhost:5000/
