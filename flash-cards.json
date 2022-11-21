@@ -29,10 +29,489 @@
         "answer":"Resource-based policies are used to control which accounts and services can access the Lambda",
         "tags": ["AWS","Lambda"]
     },
-    
     {
         "question":"What do IAM roles define in the context of Lambdas",
         "answer":"IAM roles control what the Lambda can access",
         "tags": ["AWS","Lambda"]
+    },
+    {
+        "question":"What is the typical cross-region with Aurora Global Database",
+        "answer":"Less than one second",
+        "tags": ["AWS","RDS","Aurora"]
+    },
+    {
+        "question":"How many secondary regions can you set up with Aurora Global Database",
+        "answer":"Up to 5 secondary (read-only) regions",
+        "tags": ["AWS","Aurora","RDS"]
+    },
+    {
+        "question":"How many read replicas can you have per secondary Aurora Global Dabase region",
+        "answer":"Up to 16 read replicas",
+        "tags": ["AWS","Aurora","RDS"]
+    },
+    {
+        "question":"What does Aurora Machine Learning integrate with",
+        "answer":"Amazon Sage Maker, Comprehend",
+        "tags": ["AWS","Aurora","RDS"]
+    },
+    {
+        "question":"What are use cases for Aurora Machine Learning",
+        "answer":"Fraud detection, ads targeting, sentiment analysis, product recommendations",
+        "tags": ["AWS","Aurora","RDS"]
+    },
+    { 
+        "question":"How long can you retain automated RDS backups for?",
+        "answer":"Between 1 to 35 days, 0 to disable automated backups",
+        "tags": ["AWS","RDS"]
+    },
+    {
+        "question":"How long can you retain manual DB snapshots",
+        "answer":"For as long as you want",
+        "tags": ["AWS","RDS"]
+    },
+    {
+        "question":"How long can you keep Aurora Backups for?",
+        "answer":"Between 1 to 35 days",
+        "tags": ["AWS","Aurora"]
+    },
+    {
+        "question":"Can you disable Aurora Backups?",
+        "answer":"No",
+        "tags": ["AWS","Aurora"]
+    },
+    {
+        "question":"What is point-in-time recovery for Aurora",
+        "answer":"You can recover data to any point in time of your aurora backup timeframe",
+        "tags": ["AWS","Aurora"]
+    },
+    {
+        "question":"What are restore options for RDS & Aurora",
+        "answer":"From snapshot, and from S3 to MySQL Aurora Cluster /RDS DB",
+        "tags": ["AWS","RDS","Aurora"]
+    },
+    {
+        "question":"What is a faster way of cloning database than recovering from snapshot?",
+        "answer":"It is faster to use Aurora Database cloning. It also does not affect/impact production database.",
+        "tags": ["AWS","Aurora"]
+    },
+    {
+        "question":"How can you encrypt an unencrypted database?",
+        "answer":"Go through snapshot and restore operation.",
+        "tags": ["AWS","RDS"]
+    },
+    {
+        "question":"Can read replicas be encrypted if master is not encrypted?",
+        "answer":"No",
+        "tags": ["AWS",""]
+    },
+    {
+        "question":"How is at-rest encryption achieved with RDS/ Aurora?",
+        "answer":"Using AWS KMS which must be defined at launch time.",
+        "tags": ["AWS","RDS"]
+    },
+    {
+        "question":"How can you encrypt data in-flight with RDS/Aurora?",
+        "answer":"Each Database in RDS/Aurora is TLS-ready and your application must use WAS TLS root certificates client-side.",
+        "tags": ["AWS","RDS"]
+    },
+    {
+        "question":"How can you connect to your database?",
+        "answer":"You can use IAM",
+        "tags": ["AWS","RDS"]
+    },
+    {
+        "question":"How can you control network access to your RDS/Aurora DBs?",
+        "answer":"Using Security Groups",
+        "tags": ["AWS","RDS"]
+    },
+    {
+        "question":"Is SSH available with RDS/Aurora?",
+        "answer":"No. Unelss using RDS Custom.",
+        "tags": ["AWS","RDS"]
+    },
+    {
+        "question":"How can you retain audit logs for longer time with Aurora/RDS?",
+        "answer":"Using CloudWatch logs service",
+        "tags": ["AWS","RDS"]
+    },
+    {
+        "question":"Why use RDS proxy?",
+        "answer":"Allows apps to pool and share DB connections establish with the database?",
+        "tags": ["AWS","RDS"]
+    },
+    {
+        "question":"How can you reduce the stress on database resources?",
+        "answer":"You can increase efficiency by enabling Amazon RDS proxy.",
+        "tags": ["AWS","RDS"]
+    },
+    {
+        "question":"How can RDS Proxy reduce failover time?",
+        "answer":"Instead of your applications connecting directly to the database and handling failover themselves - this can be handles by RDS proxy.",
+        "tags": ["AWS","RDS"]
+    },
+    {
+        "question":"Which Databases does RDS proxy support?",
+        "answer":"RDS (MySQL, PostgreSQL, MariaDB) and Aurora(MySQL,PostgreSQL)",
+        "tags": ["AWS","RDS"]
+    },
+    {
+        "question":"Can you enforce IAM authentication to databases?",
+        "answer":"You can achieve this by using RDS Proxy - you can store the credentials in AWS Secrets Manager.",
+        "tags": ["AWS","RDS"]
+    },
+    {
+        "question":"Is RDS Proxy publicly available?",
+        "answer":"No. Can only be accessed via VPC.",
+        "tags": ["AWS","RDS"]
+    },
+    {
+        "question":"How can RDS Proxy help with Lambda functions.",
+        "answer":"Lambda functions will open and timeout connectins if interacting directly.",
+        "tags": ["AWS","RDS"]
+    },
+    {
+        "question":"What are caches?",
+        "answer":"In-memory databases with really high perofrmanch and low latency.",
+        "tags": ["AWS","ElastiCache"]
+    },
+    {
+        "question":"What is the difference between Redis and Memcached",
+        "answer":"Redis is - Multi AZ with auto failover. Read replicas to scale reads and have high availability. Data Durability using AOF persistance. Backup and restore feature. Memcached - Multi-node(sharding), No high availability, Non persitent, No backup and restore, Multi-threaded architecture.",
+        "tags": ["AWS","ElastiCache"]
+    },
+    {
+        "question":"Does ElastiCache support IAM authentication",
+        "answer":"No",
+        "tags": ["AWS","ElastiCache"]
+    },
+
+    {
+        "question":"What are IAM policies on ElastiCache used for?",
+        "answer":"AWS API-level security. (Creating/Deleting cache etc.)",
+        "tags": ["AWS","ElastiCache"]
+    },
+
+    {
+        "question":"Does Redis support SSL in flight encryption?",
+        "answer":"Yes",
+        "tags": ["AWS","ElastiCache"]
+    },
+
+    {
+        "question":"What else can you setup with Redis in terms of extra security apart from security groups?",
+        "answer":"You can set a password or token when you create a redis cluster.",
+        "tags": ["AWS","ElastiCache"]
+    },
+
+    {
+        "question":"What security does Memcache support?",
+        "answer":"SASL-based authentication.",
+        "tags": ["AWS","ElastiCache"]
+    },
+    {
+        "question":"What is Lazy Loading pattern for ElastiCache",
+        "answer":"All the read data is cached - data can become stale in cache.",
+        "tags": ["AWS","ElastiCache"]
+    },
+    {
+        "question":"What is Write Through pattern for ElastiCache",
+        "answer":"Adds or update data in the cache when written to a DB (no stale data)",
+        "tags": ["AWS","ElastiCache"]
+    },
+    {
+        "question":"What is session store pattern for ElastiCache",
+        "answer":"Store temporary session data in cache (using TTL features)",
+        "tags": ["AWS","ElastiCache"]
+    },
+    {
+        "question":"What are the three patterns for ElastiCache?",
+        "answer":"Lazy Loadin, Write Through, Session Store",
+        "tags": ["AWS","ElastiCache"]
+    },
+    {
+        "question":"What is Redis Sorted sets for?",
+        "answer":"Redis sets guarantee both uniquiness and element ordering. Each time a new element is added it will be ranked in real time and then added in correct order.",
+        "tags": ["AWS","ElastiCache"]
+    },
+    {
+        "question":"What is the port for FTP?",
+        "answer":"21",
+        "tags": ["AWS","Common Ports"]
+    },
+    {
+        "question":"What is the port for SSH?",
+        "answer":"22",
+        "tags": ["AWS","Common Ports"]
+    },
+    {
+        "question":"What is the port for SFTP?",
+        "answer":"22",
+        "tags": ["AWS","Common Ports"]
+    },
+    {
+        "question":"What is the port for HTTP?",
+        "answer":"80",
+        "tags": ["AWS","Common Ports"]
+    },
+    {
+        "question":"What is the port for HTTPS?",
+        "answer":"443",
+        "tags": ["AWS","Common Ports"]
+    },
+    {
+        "question":"What is the port for PostgreSQL?",
+        "answer":"5432",
+        "tags": ["AWS","Common Ports"]
+    },
+    {
+        "question":"What is the port for MySQL?",
+        "answer":"3306",
+        "tags": ["AWS","Common Ports"]
+    },
+    {
+        "question":"What is the port for Oracle RDS?",
+        "answer":"1521",
+        "tags": ["AWS","Common Ports"]
+    },
+    {
+        "question":"What is the port for MSSQL?",
+        "answer":"1433",
+        "tags": ["AWS","Common Ports"]
+    },
+    {
+        "question":"What is the port for Aurora?",
+        "answer":"5432 for PostgreSQL, 3306 for MySQL",
+        "tags": ["AWS","Common Ports"]
+    },
+    {
+        "question":"What can you do if you need a Database that must be available even in case of a disaster in one of the Availability Zones?",
+        "answer":"Enable Multi-AZ",
+        "tags": ["AWS","RDS"]
+    },
+    {
+        "question":"What are Route 53 records?",
+        "answer":"They define how you want to route traffic for a domain.",
+        "tags": ["AWS","Route 53"]
+    },
+    {
+        "question":"What is the A record type?",
+        "answer":"Maps hostname to IPv4",
+        "tags": ["AWS","Route 53"]
+    },
+    {
+        "question":"What is the AAAA record type?",
+        "answer":"Maps hostname to IPv6",
+        "tags": ["AWS","Route 53"]
+    },
+    {
+        "question":"What is the CNAME record type?",
+        "answer":"Maps hostname to another hostname",
+        "tags": ["AWS","Route 53"]
+    },
+    {
+        "question":"Can you create a CNAME record for top node?",
+        "answer":"No. You cannot create CNAME for example.com you could, however, create CNAME for www.example.com",
+        "tags": ["AWS","Route 53"]
+    },
+    {
+        "question":"What is the NS record type?",
+        "answer":"Name Servers for Hosted Zones",
+        "tags": ["AWS","Route 53"]
+    },
+
+    {
+        "question":"What are hosted zones in context of Route 53?",
+        "answer": "They are container for records that define how to route traffic to a domain and its subdomains",
+        "tags": ["AWS","Route 53"]
+    },
+    {
+        "question":"What is a private hosted zone?",
+        "answer":"They contain records that specify how you route within one or more VPCs (private domain names)",
+        "tags": ["AWS","Route 53"]
+    },
+    {
+        "question":"What is a public hosted zone?",
+        "answer":"Public can answer queries from public clients.",
+        "tags": ["AWS","Route 53"]
+    },
+    {
+        "question":"What is the difference between an Alias and CNAME?",
+        "answer":"CNAME can only point hostnames to other hostnames and cannot point non root domain wheras Alias points to AWS Resource and can be pointed to root domain and non-root domain",
+        "tags": ["AWS","Route 53"]
+    },
+    {
+        "question":"Can you set TTL for an Alias record in Route 53?",
+        "answer":"No.",
+        "tags": ["AWS","Route 53"]
+    },
+    {
+        "question":"What are targets for Alias records?",
+        "answer":"ELB, CloudFront Distributions, API Gateways, Elastic Beanstalk, S3 Websites, VPC Interface Endpoints, Global Accelerator, Route 53 record in the same hosted zone.",
+        "tags": ["AWS","Route 53"]
+    },
+    {
+        "question":"Can you set an Alias to a EC2 DNS name?",
+        "answer":"No.",
+        "tags": ["AWS","Route 53"]
+    },
+    {
+        "question":"Can you point CNAME to example.com",
+        "answer":"No.",
+        "tags": ["AWS","Route 53"]
+    },
+    {
+        "question":"Can you point Alias to example.com",
+        "answer":"Yes. You can have this setup and a working example would be the Alias pointing to an ELB.",
+        "tags": ["AWS","Route 53"]
+    },
+    {
+        "question":"What is a routing policy?",
+        "answer":"Routing policy defines how Route 53 responds to DNS queries.",
+        "tags": ["AWS","Route 53"]
+    },
+    {
+        "question":"What routing policies does Route 53 support?",
+        "answer":"Simple, weighted, failover, latency based, geolocation, multi-value answer, geoproximity.",
+        "tags": ["AWS","Route 53"]
+    },
+
+    {
+        "question":"How does a simple routing policy work?",
+        "answer":"Typically, routes traffic to a single resource",
+        "tags": ["AWS","Route 53"]
+    },
+    {
+        "question":"What happens when you specify multiple values in the same simple policy?",
+        "answer":"The client will choose one value at random.",
+        "tags": ["AWS","Route 53"]
+    },
+    {
+        "question":"Can you specify multiple Alias values to a simple policy?",
+        "answer":"No. Only a single Alias can be selected for a simple policy.",
+        "tags": ["AWS","Route 53"]
+    },
+    {
+        "question":"Can you associate a health check with simple policy?",
+        "answer":"No.",
+        "tags": ["AWS","Route 53"]
+    },
+    {
+        "question":"What are weighted routing policies?",
+        "answer":"Weighted routing policies control the percentage of the requests that go to each specific resource. Weights do not need to sum up to 100.",
+        "tags": ["AWS","Route 53"]
+    },
+    {
+        "question":"What happens when you define weighting policy with weight value of 0.",
+        "answer":"No traffic will be routed. If all values are set to value of 0 - the weighting will be distributed equally.",
+        "tags": ["AWS","Route 53"]
+    },
+    {
+        "question":"What is the latency based routing policy?",
+        "answer":"Redirects to the resources that has the least latency.",
+        "tags": ["AWS","Route 53"]
+    },
+
+    {
+        "question":"What are healthchecks in terms of Route 53?",
+        "answer":"Healthchecks allow for automated DNS failover.",
+        "tags": ["AWS","Route 53"]
+    },
+    {
+        "question":"What types of health checks are there?",
+        "answer":"Healthchecks that monitor an endpoint, healthchecks that monitor other healthchecks or health checks that monitor CloudWatch alarms.",
+        "tags": ["AWS","Route 53"]
+    },
+    {
+        "question":"What protocols does route 53 support?",
+        "answer":"HTTP,HTTPs,TCP",
+        "tags": ["AWS","Route 53"]
+    },
+    {
+        "question":"What is the minimum percantage amount of healthcheckers for Route 53 to consider the route healthy?",
+        "answer":"18%",
+        "tags": ["AWS","Route 53"]
+    },
+    {
+        "question":"How many global health checkers will check that the endpoint is healthy in the context of Route 53?",
+        "answer":"About 15 global healthcheckers.",
+        "tags": ["AWS","Route 53"]
+    },
+    {
+        "question":"In the context of Route53 what status codes do the healthchecks have to get for them to pass?",
+        "answer":"2XX , 3XX",
+        "tags": ["AWS","Route 53"]
+    },
+
+    {
+        "question":"In the context of Route 53 can healthcheckers check text based responses?",
+        "answer":"Yes. Healthcheckers can check the first 5120 bytes of the response.",
+        "tags": ["AWS","Route 53"]
+    },
+
+    {
+        "question":"In terms of Route 53 what are calculated healthchecks?",
+        "answer":"Calculated healtchecks combine the results of multiple healthchecks into a single healthcheck.",
+        "tags": ["AWS","Route 53"]
+    },
+    {
+        "question":"In the context of Route 53 how many child health checks can a parent monitor?",
+        "answer":"Up to 256 child healthchecks.",
+        "tags": ["AWS","Route 53"]
+    },
+    {
+        "question":"In the context of Route 53 can you specify how many healthchecks have to pass to make the parent pass a healthcheck?",
+        "answer":"Yes.",
+        "tags": ["AWS","Route 53"]
+    },
+    {
+        "question":"Can you directly check private endpoints (VPC/on-prem resource) using Route 53 healthchecks?",
+        "answer":"No.",
+        "tags": ["AWS","Route 53"]
+    },
+
+    {
+        "question":"How can you healthcheck private endpoints with Route 53 healthchecks?",
+        "answer":"By creating a cloudwatch alarm that will be monitored by the healthcheck.",
+        "tags": ["AWS","Route 53"]
+    },
+    {
+        "question":"What is the failover routing policy?",
+        "answer":"Failover routing policy enables the Route53 to failover to a specific instance when the healthcheck on the primary record fails.",
+        "tags": ["AWS","Route 53"]
+    },
+    {
+        "question":"How do you define a failover routing policy.",
+        "answer":"By selecting the routing policy and defining it as the Primary/Secondary record type.",
+        "tags": ["AWS","Route 53"]
+    },
+    {
+        "question":"What is geolocation routing policy?",
+        "answer":"It is a policy based on where the user is located.",
+        "tags": ["AWS","Route 53"]
+    },
+    {
+        "question":"What locations can you select for a Geolocation routing policy?",
+        "answer":"Continent, Country, US State",
+        "tags": ["AWS","Route 53"]
+    },
+    {
+        "question":"When would you use a geoproximity routing policy?",
+        "answer":"Use when you want to route traffic based on the location of your resources and, optionally, shift traffic from resources in one location to resources in another.",
+        "tags": ["AWS","Route 53"]
+    },
+    {
+        "question":"When is a multi value routing policy used?",
+        "answer":"It is used when you want to route traffic to multiple resources.",
+        "tags": ["AWS","Route 53"]
+    },
+    {
+        "question":"What is the difference between simple routing and multi value routing?",
+        "answer":"Simple routing does not allow for healthchecks whereas mutli value does.",
+        "tags": ["AWS","Route 53"]
+    },
+    {
+        "question":"What is the difference between Domain Registrar and DNS service?",
+        "answer":"Domain registrar allows you to buy/register domain names whereas DNS services allows you to manage your DNS records",
+        "tags": ["AWS","Route 53"]
     }
 ]
