@@ -102,7 +102,7 @@
     {
         "question":"Can read replicas be encrypted if master is not encrypted?",
         "answer":"No",
-        "tags": ["AWS",""]
+        "tags": ["AWS","RDS"]
     },
     {
         "question":"How is at-rest encryption achieved with RDS/ Aurora?",
