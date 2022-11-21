@@ -2,16 +2,14 @@ package dev.equalcoding.flashcards.rest;
 
 import dev.equalcoding.flashcards.models.FlashCard;
 import dev.equalcoding.flashcards.models.FlashCardTag;
-import dev.equalcoding.flashcards.repo.FlashCardRepo;
-import dev.equalcoding.flashcards.repo.FlashCardTagRepo;
 import dev.equalcoding.flashcards.service.FlashCardService;
+import dev.equalcoding.flashcards.service.FlashCardTagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -20,13 +18,10 @@ import java.util.List;
 public class RestController {
 
     @Autowired
-    FlashCardRepo flashCardRepo;
-
-    @Autowired
     FlashCardService flashCardService;
 
     @Autowired
-    FlashCardTagRepo flashCardTagRepo;
+    FlashCardTagService flashCardTagService;
 
     @PostMapping("flashcards")
     public ResponseEntity<Void> addFlashCards(@RequestBody List<FlashCard> flashCards) {
@@ -36,20 +31,19 @@ public class RestController {
 
     @GetMapping("flashcards")
     public ResponseEntity<List<FlashCard>> getAllFlashCards() {
-        List<FlashCard> flashCards = new ArrayList<>();
-        flashCardRepo.findAll().forEach(flashCards::add);
-        return ResponseEntity.ok(flashCards);
+        return ResponseEntity.ok(flashCardService.getAllCards());
     }
 
     @GetMapping("flashcards/tags/{tag}")
-    public ResponseEntity<List<FlashCard>> getFlashCardsByTag(@PathVariable String tag) {
-        return ResponseEntity.ok(flashCardRepo.findByTags(tag));
+    public ResponseEntity<List<FlashCard>> getFlashCardsByTag(@PathVariable String tag,
+                                                              @RequestParam(required = false, defaultValue = "0") int count) {
+        return ResponseEntity.ok(flashCardService.getRandomFlashCardsByTag(tag, count));
     }
 
 
     @GetMapping("tags")
     public ResponseEntity<List<FlashCardTag>> getAllTags() {
-        return ResponseEntity.ok(flashCardTagRepo.findAll());
+        return ResponseEntity.ok(flashCardTagService.getAllTags());
     }
 
 

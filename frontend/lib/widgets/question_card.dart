@@ -92,7 +92,7 @@ class _QuestionCardState extends State<QuestionCard>
                       textAlign: TextAlign.center,
                       softWrap: true,
                       text:
-                          TextSpan(text: 'Question ${widget.flashCard.question}'),
+                          TextSpan(text: widget.flashCard.question),
                     ),
                   ),
                 ),

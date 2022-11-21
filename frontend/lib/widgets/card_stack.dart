@@ -53,7 +53,7 @@ class _CardStackState extends State<CardStack> {
   }
 
   Future<List<FlashCard>> fetchFlashCards() async {
-    var uri = Uri.http('localhost:8080', 'api/flashcards/tags/${widget.tag}');
+    var uri = Uri.http('localhost:8080', 'api/flashcards/tags/${widget.tag}',{"count": "10"});
     var response = await http.get(uri);
 
     List<dynamic> list = json.decode(response.body);
