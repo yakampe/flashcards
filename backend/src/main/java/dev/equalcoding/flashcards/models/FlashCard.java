@@ -3,10 +3,11 @@ package dev.equalcoding.flashcards.models;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.Comparator;
 import java.util.List;
 
 @Document(collection = "flash-card-items")
-public class FlashCard {
+public class FlashCard implements Comparable<FlashCard> {
 
     @Id
     private String id;
@@ -87,5 +88,17 @@ public class FlashCard {
 
     public void incrementIncorrectCount() {
         incorrectCount += 1;
+    }
+
+
+
+    @Override
+    public int compareTo(FlashCard flashCard) {
+        //Seen cards go last
+        //Most incorrect cards will be prioritised
+        int correctness = this.incorrectCount - this.correctCount;
+        int comparableCorrectness = flashCard.incorrectCount - flashCard.correctCount;
+        if(comparableCorrectness > correctness) return 1;
+        return -1;
     }
 }

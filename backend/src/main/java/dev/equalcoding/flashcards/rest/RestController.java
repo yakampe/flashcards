@@ -52,7 +52,7 @@ public class RestController {
     @GetMapping("flashcards/tags/{tag}")
     public ResponseEntity<List<FlashCard>> getFlashCardsByTag(@PathVariable String tag,
                                                               @RequestParam(required = false, defaultValue = "0") int count) {
-        return ResponseEntity.ok(flashCardService.getRandomFlashCardsByTag(tag, count));
+        return ResponseEntity.ok(flashCardService.getFlashCardsByTag(tag, count));
     }
 
 

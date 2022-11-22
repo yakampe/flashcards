@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.*;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 @Service
 public class FlashCardService {
@@ -91,15 +92,14 @@ public class FlashCardService {
         return flashCardRepo.findAll();
     }
 
-    public List<FlashCard> getRandomFlashCardsByTag(String tag, int count) {
+    public List<FlashCard> getFlashCardsByTag(String tag, int count) {
         List<FlashCard> allCards = new ArrayList<>();
-
-
-        logger.info(allCards.toString());
 
         allCards.addAll(flashCardRepo.findByTags(tag));
 
-        Collections.shuffle(allCards, new Random());
+        List<FlashCard> seenCards = allCards.stream().filter(flashCard -> flashCard.isSeen()).sorted().collect(Collectors.toList());
+        allCards.removeAll(seenCards);
+        allCards.addAll(seenCards);
 
         if (count == 0 || count > allCards.size()) {
             return allCards;
