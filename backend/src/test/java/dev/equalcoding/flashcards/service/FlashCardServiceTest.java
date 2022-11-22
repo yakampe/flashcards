@@ -20,8 +20,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 
 @ExtendWith(MockitoExtension.class)
@@ -229,10 +228,11 @@ class FlashCardServiceTest {
     }
 
     @Test
-    public void givenAnCardHasBeenAlreadySeenCardShouldNotIncrementUniqueCardsSeen() {
+    public void givenAnCardHasBeenAlreadyAnsweredCorrectlyCardShouldNotIncrementUniqueCardsSeen() {
         FlashCard processingCard = new FlashCard();
         processingCard.setTags(List.of("tag"));
         processingCard.setSeen(true);
+        processingCard.setCorrectCount(1);
 
         ArgumentCaptor<FlashCardTag> tagCaptor = ArgumentCaptor.forClass(FlashCardTag.class);
 
@@ -245,6 +245,26 @@ class FlashCardServiceTest {
         verify(flashCardTagRepo, times(1)).save(tagCaptor.capture());
 
         assertEquals(20, tagCaptor.getValue().getUniqueCardsSeenCount());
+    }
+
+    @Test
+    public void givenAnCardHasNotBeenAnsweredCorrectlyCardShouldIncrementUniqueCardsSeen() {
+        FlashCard processingCard = new FlashCard();
+        processingCard.setTags(List.of("tag"));
+        processingCard.setSeen(true);
+        processingCard.setCorrectCount(0);
+
+        ArgumentCaptor<FlashCardTag> tagCaptor = ArgumentCaptor.forClass(FlashCardTag.class);
+
+        FlashCardTag processingTag = new FlashCardTag();
+        processingTag.setUniqueCardsSeenCount(20);
+
+        given(flashCardTagRepo.findById(anyString())).willReturn(Optional.of(processingTag));
+
+        flashCardService.processCard(processingCard, CardProcessingType.CORRECT);
+        verify(flashCardTagRepo, times(1)).save(tagCaptor.capture());
+
+        assertEquals(21, tagCaptor.getValue().getUniqueCardsSeenCount());
     }
 
     @Test

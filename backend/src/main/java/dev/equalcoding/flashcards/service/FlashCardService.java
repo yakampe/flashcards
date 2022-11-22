@@ -67,7 +67,7 @@ public class FlashCardService {
                 FlashCardTag flashCardTag = tagObject.get();
                 processTagIncrementation(cardProcessingType, flashCardTag);
                 flashCardTag.incrementSeenCount();
-                if(!flashCard.isSeen() && cardProcessingType == CardProcessingType.CORRECT) {
+                if(flashCard.getCorrectCount() == 0 && cardProcessingType == CardProcessingType.CORRECT) {
                     flashCardTag.incrementUniqueCardsSeenCount();
                 }
                 flashCardTagRepo.save(flashCardTag);

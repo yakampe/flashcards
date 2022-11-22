@@ -4,8 +4,9 @@ class FlashCard {
   String? answer;
   List<String>? tags;
   bool? seen;
+  int? correctCount;
 
-  FlashCard({this.id, this.question, this.answer, this.tags, this.seen});
+  FlashCard({this.id, this.question, this.answer, this.tags, this.seen, this.correctCount});
 
   FlashCard.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -13,6 +14,7 @@ class FlashCard {
     answer = json['answer'];
     tags = json['tags'].cast<String>();
     seen = json['seen'];
+    correctCount = json['correctCount'];
   }
 
   Map<String, dynamic> toJson() {
@@ -22,6 +24,7 @@ class FlashCard {
     data['answer'] = answer;
     data['tags'] = tags;
     data['seen'] = seen;
+    data['correctCount'] = correctCount;
     return data;
   }
 }
