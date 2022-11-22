@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import '../models/flash_card_tag.dart';
+
 class CardItem extends StatefulWidget {
-  final String tag;
+  final FlashCardTag flashCardTag;
   final Function selectAction;
 
-  const CardItem({Key? key, required this.tag, required this.selectAction})
+  const CardItem({Key? key, required this.flashCardTag, required this.selectAction})
       : super(key: key);
 
   @override
@@ -49,7 +51,7 @@ class _CardItemState extends State<CardItem> {
       overlayColor: null,
       hoverColor: Colors.transparent,
       onTap: () {
-        widget.selectAction(widget.tag);
+        widget.selectAction(widget.flashCardTag.tag);
       },
       onHover: (isHover) {
         if (isHover) {
@@ -76,27 +78,27 @@ class _CardItemState extends State<CardItem> {
                   fontSize: 30,
                   fontWeight: FontWeight.bold,
                 ),
-                widget.tag),
+                widget.flashCardTag.tag!),
           ),
         ),
         Expanded(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              _buildStatisticsColumn(const FaIcon(FontAwesomeIcons.eye), "0"),
-              _buildStatisticsColumn(const FaIcon(FontAwesomeIcons.clone), "0"),
+              _buildStatisticsColumn(const FaIcon(FontAwesomeIcons.eye), widget.flashCardTag.cardsSeenCount.toString()),
+              _buildStatisticsColumn(const FaIcon(FontAwesomeIcons.clone), widget.flashCardTag.count.toString()),
               _buildStatisticsColumn(
                   const FaIcon(
                     FontAwesomeIcons.check,
                     color: Colors.green,
                   ),
-                  "0"),
+                  widget.flashCardTag.correctCount.toString()),
               _buildStatisticsColumn(
                   const FaIcon(
                     FontAwesomeIcons.xmark,
                     color: Colors.red,
                   ),
-                  "0"),
+                  widget.flashCardTag.incorrectCount.toString()),
             ],
           ),
         )
