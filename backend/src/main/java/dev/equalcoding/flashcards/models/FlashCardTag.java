@@ -73,4 +73,8 @@ public class FlashCardTag {
     public void incrementIncorrectCount() {
         incorrectCount += 1;
     }
+
+    public void incrementSeenCount() {
+        cardsSeenCount += 1;
+    }
 }

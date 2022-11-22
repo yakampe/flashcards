@@ -40,7 +40,7 @@ public class FlashCardService {
     }
 
     public void processCard(FlashCard flashCard, CardProcessingType cardProcessingType) {
-        incrementTagCorrectCount(flashCard, cardProcessingType);
+        processTagIncrementation(flashCard, cardProcessingType);
         processCardIncrementation(flashCard, cardProcessingType);
         flashCardRepo.save(flashCard);
     }
@@ -56,12 +56,13 @@ public class FlashCardService {
         }
     }
 
-    private void incrementTagCorrectCount(FlashCard flashCard, CardProcessingType cardProcessingType) {
+    private void processTagIncrementation(FlashCard flashCard, CardProcessingType cardProcessingType) {
         flashCard.getTags().forEach(tag -> {
             Optional<FlashCardTag> tagObject = flashCardTagRepo.findById(tag);
             if (tagObject.isPresent()) {
                 FlashCardTag flashCardTag = tagObject.get();
                 processTagIncrementation(cardProcessingType, flashCardTag);
+                flashCardTag.incrementSeenCount();
                 flashCardTagRepo.save(flashCardTag);
             }
         });
