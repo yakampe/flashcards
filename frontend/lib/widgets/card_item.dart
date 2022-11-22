@@ -46,7 +46,6 @@ class _CardItemState extends State<CardItem> {
 
   InkWell _buildCardContentWithHoverEffect() {
     return InkWell(
-      mouseCursor: MouseCursor.defer,
       autofocus: false,
       highlightColor: null,
       focusColor: null,
@@ -99,7 +98,7 @@ class _CardItemState extends State<CardItem> {
         _buildStatisticsColumn(
             const FaIcon(FontAwesomeIcons.graduationCap),
             widget.flashCardTag.uniqueCardsSeenCount.toString(),
-            "Unique Cards Answered correctly"),
+            "Unique Cards Answered Correctly"),
         _buildStatisticsColumn(const FaIcon(FontAwesomeIcons.clone),
             widget.flashCardTag.count.toString(), "Total Cards"),
         _buildStatisticsColumn(
