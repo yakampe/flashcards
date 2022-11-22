@@ -92,7 +92,7 @@ class _QuestionCardState extends State<QuestionCard>
                       textAlign: TextAlign.center,
                       softWrap: true,
                       text:
-                          TextSpan(text: widget.flashCard.question),
+                          TextSpan(style: const TextStyle(color: Colors.black),text: widget.flashCard.question),
                     ),
                   ),
                 ),
