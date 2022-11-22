@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class CardItem extends StatefulWidget {
   final String tag;
@@ -13,7 +14,6 @@ class CardItem extends StatefulWidget {
 
 class _CardItemState extends State<CardItem> {
   double elevation = 10;
-
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +33,10 @@ class _CardItemState extends State<CardItem> {
       elevation: elevation,
       margin: const EdgeInsets.all(25),
       shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(Radius.circular(20),),),
+        borderRadius: BorderRadius.all(
+          Radius.circular(20),
+        ),
+      ),
       child: _buildCardContentWithHoverEffect(),
     );
   }
@@ -63,9 +66,48 @@ class _CardItemState extends State<CardItem> {
     );
   }
 
-
   Widget _buildCardContent() {
-    return Center(child: Text(widget.tag))
+    return Column(
+      children: [
+        Expanded(
+          child: Center(
+            child: Text(
+                style: const TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                ),
+                widget.tag),
+          ),
+        ),
+        Expanded(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              _buildStatisticsColumn(const FaIcon(FontAwesomeIcons.eye), "0"),
+              _buildStatisticsColumn(const FaIcon(FontAwesomeIcons.clone), "0"),
+              _buildStatisticsColumn(
+                  const FaIcon(
+                    FontAwesomeIcons.check,
+                    color: Colors.green,
+                  ),
+                  "0"),
+              _buildStatisticsColumn(
+                  const FaIcon(
+                    FontAwesomeIcons.xmark,
+                    color: Colors.red,
+                  ),
+                  "0"),
+            ],
+          ),
+        )
+      ],
+    );
   }
 
+  Column _buildStatisticsColumn(FaIcon icon, String text) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [icon, Text(text)],
+    );
+  }
 }

@@ -45,15 +45,21 @@ class _TagSelectorState extends State<TagSelector> {
 
   @override
   Widget build(BuildContext context) {
-    return Wrap(
-      children: [
-        ...tags.map(
-          (e) => CardItem(
-            tag: e,
-            selectAction: selectAction,
-          ),
+    return SingleChildScrollView(
+      child: Scrollbar(
+        thumbVisibility: false,
+        trackVisibility: false,
+        child: Wrap(
+          children: [
+            ...tags.map(
+              (e) => CardItem(
+                tag: e,
+                selectAction: selectAction,
+              ),
+            ),
+          ],
         ),
-      ],
+      ),
     );
   }
 }
