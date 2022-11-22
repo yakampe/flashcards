@@ -84,4 +84,8 @@ public class FlashCard {
     public void setTags(List<String> tags) {
         this.tags = tags;
     }
+
+    public void incrementIncorrectCount() {
+        incorrectCount += 1;
+    }
 }

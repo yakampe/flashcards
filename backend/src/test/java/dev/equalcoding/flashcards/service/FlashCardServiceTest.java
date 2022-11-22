@@ -1,5 +1,6 @@
 package dev.equalcoding.flashcards.service;
 
+import dev.equalcoding.flashcards.models.CardProcessingType;
 import dev.equalcoding.flashcards.models.FlashCard;
 import dev.equalcoding.flashcards.models.FlashCardTag;
 import dev.equalcoding.flashcards.repo.FlashCardRepo;
@@ -90,13 +91,35 @@ class FlashCardServiceTest {
 
         given(flashCardTagRepo.findById(anyString())).willReturn(Optional.of(processingTag));
 
-        flashCardService.processCard(processingCard);
+        flashCardService.processCard(processingCard, CardProcessingType.CORRECT);
         verify(flashCardTagRepo,times(1)).save(tagCaptor.capture());
         verify(flashCardRepo,times(1)).save(cardCaptor.capture());
 
         assertEquals(11,cardCaptor.getValue().getCorrectCount());
         assertEquals(21,tagCaptor.getValue().getCorrectCount());
+    }
 
+    @Test
+    public void givenCardAnsweredIncorrectlyShouldIncreaseIncorrectCountForTagAndCard() {
+        FlashCard processingCard = new FlashCard();
+        processingCard.setTags(List.of("tag"));
+        processingCard.setIncorrectCount(10);
+
+
+        ArgumentCaptor<FlashCard> cardCaptor = ArgumentCaptor.forClass(FlashCard.class);
+        ArgumentCaptor<FlashCardTag> tagCaptor = ArgumentCaptor.forClass(FlashCardTag.class);
+
+        FlashCardTag processingTag = new FlashCardTag();
+        processingTag.setIncorrectCount(20);
+
+        given(flashCardTagRepo.findById(anyString())).willReturn(Optional.of(processingTag));
+
+        flashCardService.processCard(processingCard, CardProcessingType.INCORRECT);
+        verify(flashCardTagRepo,times(1)).save(tagCaptor.capture());
+        verify(flashCardRepo,times(1)).save(cardCaptor.capture());
+
+        assertEquals(11,cardCaptor.getValue().getIncorrectCount());
+        assertEquals(21,tagCaptor.getValue().getIncorrectCount());
     }
 
 

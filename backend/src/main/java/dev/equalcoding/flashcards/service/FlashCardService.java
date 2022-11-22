@@ -1,5 +1,6 @@
 package dev.equalcoding.flashcards.service;
 
+import dev.equalcoding.flashcards.models.CardProcessingType;
 import dev.equalcoding.flashcards.models.FlashCard;
 import dev.equalcoding.flashcards.models.FlashCardTag;
 import dev.equalcoding.flashcards.repo.FlashCardRepo;
@@ -32,27 +33,49 @@ public class FlashCardService {
                 flashCardTag.setCount(flashCardTag.getCount() + 1);
                 flashCardTagRepo.save(flashCardTag);
             } else {
-                flashCardTagRepo.save(new FlashCardTag(tag, 1, 0, 0 ,0));
+                flashCardTagRepo.save(new FlashCardTag(tag, 1, 0, 0, 0));
             }
         });
         flashCardRepo.save(flashCard);
     }
 
-    public void processCard(FlashCard flashCard) {
-        incrementTagCorrectCount(flashCard);
-        flashCard.incrementCorrectCount();
+    public void processCard(FlashCard flashCard, CardProcessingType cardProcessingType) {
+        incrementTagCorrectCount(flashCard, cardProcessingType);
+        processCardIncrementation(flashCard, cardProcessingType);
         flashCardRepo.save(flashCard);
     }
 
-    private void incrementTagCorrectCount(FlashCard flashCard) {
+    private void processCardIncrementation(FlashCard flashCard, CardProcessingType cardProcessingType) {
+        switch (cardProcessingType) {
+            case CORRECT: {
+                flashCard.incrementCorrectCount();
+            }
+            case INCORRECT: {
+                flashCard.incrementIncorrectCount();
+            }
+        }
+    }
+
+    private void incrementTagCorrectCount(FlashCard flashCard, CardProcessingType cardProcessingType) {
         flashCard.getTags().forEach(tag -> {
             Optional<FlashCardTag> tagObject = flashCardTagRepo.findById(tag);
-            if(tagObject.isPresent()) {
+            if (tagObject.isPresent()) {
                 FlashCardTag flashCardTag = tagObject.get();
-                flashCardTag.incrementCorrectCount();
+                processTagIncrementation(cardProcessingType, flashCardTag);
                 flashCardTagRepo.save(flashCardTag);
             }
         });
+    }
+
+    private void processTagIncrementation(CardProcessingType cardProcessingType, FlashCardTag flashCardTag) {
+        switch (cardProcessingType) {
+            case CORRECT: {
+                flashCardTag.incrementCorrectCount();
+            }
+            case INCORRECT: {
+                flashCardTag.incrementIncorrectCount();
+            }
+        }
     }
 
     public List<FlashCard> getAllCards() {
