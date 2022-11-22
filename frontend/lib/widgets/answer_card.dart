@@ -87,6 +87,7 @@ class _AnswerCardState extends State<AnswerCard> with TickerProviderStateMixin {
                       textAlign: TextAlign.center,
                       softWrap: true,
                       text: TextSpan(
+                        style: const TextStyle(color: Colors.black),
                           text: '${widget.flashCard.answer}'),
                     ),
                   ),
@@ -107,7 +108,7 @@ class _AnswerCardState extends State<AnswerCard> with TickerProviderStateMixin {
                     onPressed: widgetCreated
                         ? null
                         : () {
-                            throwCardAway(true);
+                            throwCardAway(widget.flashCard, true);
                           },
                     child: const Icon(Icons.check),
                   ),
@@ -120,7 +121,7 @@ class _AnswerCardState extends State<AnswerCard> with TickerProviderStateMixin {
                     onPressed: widgetCreated
                         ? null
                         : () {
-                            throwCardAway(false);
+                            throwCardAway(widget.flashCard, false);
                           },
                     child: const Icon(Icons.close),
                   ),
@@ -133,7 +134,7 @@ class _AnswerCardState extends State<AnswerCard> with TickerProviderStateMixin {
     );
   }
 
-  void throwCardAway(bool isCorrect) {
+  void throwCardAway(FlashCard flashCard, bool isCorrect) {
     setState(() {
       offset = Offset(
           MediaQueryData.fromWindow(WidgetsBinding.instance.window)
@@ -145,7 +146,7 @@ class _AnswerCardState extends State<AnswerCard> with TickerProviderStateMixin {
           0);
     });
     Future.delayed(const Duration(milliseconds: 500), () {
-      widget.answer(isCorrect);
+      widget.answer(flashCard, isCorrect);
     });
   }
 }

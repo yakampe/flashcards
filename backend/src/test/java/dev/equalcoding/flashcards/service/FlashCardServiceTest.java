@@ -157,6 +157,33 @@ class FlashCardServiceTest {
         assertTrue(cardCaptor.getValue().isSeen());
     }
 
+    @Test
+    public void givenCorrectIncrementTriggeredTheTagShouldOnlyUpdateCorrectIncrement() {
+        FlashCard processingCard = new FlashCard();
+        processingCard.setTags(List.of("tag"));
+        processingCard.setCorrectCount(10);
+        processingCard.setIncorrectCount(0);
+
+
+        ArgumentCaptor<FlashCard> cardCaptor = ArgumentCaptor.forClass(FlashCard.class);
+        ArgumentCaptor<FlashCardTag> tagCaptor = ArgumentCaptor.forClass(FlashCardTag.class);
+
+        FlashCardTag processingTag = new FlashCardTag();
+        processingTag.setCorrectCount(20);
+        processingTag.setIncorrectCount(0);
+
+        given(flashCardTagRepo.findById(anyString())).willReturn(Optional.of(processingTag));
+
+        flashCardService.processCard(processingCard, CardProcessingType.CORRECT);
+        verify(flashCardTagRepo,times(1)).save(tagCaptor.capture());
+        verify(flashCardRepo,times(1)).save(cardCaptor.capture());
+
+        assertEquals(11,cardCaptor.getValue().getCorrectCount());
+        assertEquals(21,tagCaptor.getValue().getCorrectCount());
+        assertEquals(0,tagCaptor.getValue().getIncorrectCount());
+        assertEquals(0,tagCaptor.getValue().getIncorrectCount());
+    }
+
 
 
     private List<FlashCard> generateFlashcardList() {

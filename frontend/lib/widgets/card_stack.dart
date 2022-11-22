@@ -53,12 +53,20 @@ class _CardStackState extends State<CardStack> {
   }
 
   Future<List<FlashCard>> fetchFlashCards() async {
-    var uri = Uri.http('localhost:8080', 'api/flashcards/tags/${widget.tag}',{"count": "10"});
+    var uri = Uri.http(
+        'localhost:8080', 'api/flashcards/tags/${widget.tag}', {"count": "10"});
     var response = await http.get(uri);
 
     List<dynamic> list = json.decode(response.body);
 
     return list.map((e) => FlashCard.fromJson(e)).toList();
+  }
+
+  Future<void> saveFlashCardStats(
+      FlashCard flashCard, bool isCorrect) async {
+    var uri = Uri.http('localhost:8080', 'api/processCard',
+        {"correct": isCorrect ? "true" : "false"});
+    await http.put(uri, body: json.encode(flashCard.toJson()),headers: {"Content-Type":"application/json"});
   }
 
   Widget drawStage() {
@@ -92,7 +100,8 @@ class _CardStackState extends State<CardStack> {
     });
   }
 
-  void confirmAnswer(bool isCorrect) {
+  void confirmAnswer(FlashCard flashCard, bool isCorrect) {
+    saveFlashCardStats(flashCard, isCorrect);
     setState(() {
       isCorrect
           ? Provider.of<CardProcessState>(context, listen: false)

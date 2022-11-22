@@ -1,5 +1,6 @@
 package dev.equalcoding.flashcards.rest;
 
+import dev.equalcoding.flashcards.models.CardProcessingType;
 import dev.equalcoding.flashcards.models.FlashCard;
 import dev.equalcoding.flashcards.models.FlashCardTag;
 import dev.equalcoding.flashcards.service.FlashCardService;
@@ -36,6 +37,12 @@ public class RestController {
         }
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
+
+    @PutMapping("processCard")
+    public ResponseEntity<Void> processCard(@RequestBody FlashCard flashCard, @RequestParam boolean correct) {
+        flashCardService.processCard(flashCard, correct ? CardProcessingType.CORRECT : CardProcessingType.INCORRECT);
+        return new ResponseEntity<>(HttpStatus.OK);
+    };
 
     @GetMapping("flashcards")
     public ResponseEntity<List<FlashCard>> getAllFlashCards() {

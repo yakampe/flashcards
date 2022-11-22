@@ -50,9 +50,11 @@ public class FlashCardService {
         switch (cardProcessingType) {
             case CORRECT: {
                 flashCard.incrementCorrectCount();
+                break;
             }
             case INCORRECT: {
                 flashCard.incrementIncorrectCount();
+                break;
             }
         }
     }
@@ -73,9 +75,11 @@ public class FlashCardService {
         switch (cardProcessingType) {
             case CORRECT: {
                 flashCardTag.incrementCorrectCount();
+                break;
             }
             case INCORRECT: {
                 flashCardTag.incrementIncorrectCount();
+                break;
             }
         }
     }
