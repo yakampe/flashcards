@@ -4,10 +4,11 @@ class FlashCardTag {
   int? correctCount;
   int? incorrectCount;
   int? cardsSeenCount;
+  int? uniqueCardsSeenCount;
 
 
   FlashCardTag({this.tag, this.count, this.correctCount, this.incorrectCount,
-      required this.cardsSeenCount});
+      required this.cardsSeenCount, this.uniqueCardsSeenCount});
 
   FlashCardTag.fromJson(Map<String, dynamic> json) {
     tag = json['tag'];
@@ -15,6 +16,7 @@ class FlashCardTag {
     correctCount = json['correctCount'];
     incorrectCount = json['incorrectCount'];
     cardsSeenCount = json['cardsSeenCount'];
+    uniqueCardsSeenCount = json['uniqueCardsSeenCount'];
   }
 
   Map<String, dynamic> toJson() {
@@ -24,6 +26,7 @@ class FlashCardTag {
     data['correctCount'] = correctCount;
     data['incorrectCount'] = incorrectCount;
     data['cardsSeenCount'] = cardsSeenCount;
+    data['uniqueCardsSeenCount'] = uniqueCardsSeenCount;
     return data;
   }
 }

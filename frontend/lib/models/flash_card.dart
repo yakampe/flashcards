@@ -3,14 +3,16 @@ class FlashCard {
   String? question;
   String? answer;
   List<String>? tags;
+  bool? seen;
 
-  FlashCard({this.id, this.question, this.answer, this.tags});
+  FlashCard({this.id, this.question, this.answer, this.tags, this.seen});
 
   FlashCard.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     question = json['question'];
     answer = json['answer'];
     tags = json['tags'].cast<String>();
+    seen = json['seen'];
   }
 
   Map<String, dynamic> toJson() {
@@ -19,6 +21,7 @@ class FlashCard {
     data['question'] = question;
     data['answer'] = answer;
     data['tags'] = tags;
+    data['seen'] = seen;
     return data;
   }
 }

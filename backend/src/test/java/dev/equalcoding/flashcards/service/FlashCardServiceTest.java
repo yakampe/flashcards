@@ -223,6 +223,26 @@ class FlashCardServiceTest {
     }
 
     @Test
+    public void givenAnUnseenCardIsProcessedCorrectlyTwiceShouldOnlyIncrementUniqueCardsSeenCountOnce() {
+        FlashCard processingCard = new FlashCard();
+        processingCard.setTags(List.of("tag"));
+        processingCard.setSeen(false);
+
+        ArgumentCaptor<FlashCardTag> tagCaptor = ArgumentCaptor.forClass(FlashCardTag.class);
+
+        FlashCardTag processingTag = new FlashCardTag();
+        processingTag.setUniqueCardsSeenCount(0);
+
+        given(flashCardTagRepo.findById(anyString())).willReturn(Optional.of(processingTag));
+
+        flashCardService.processCard(processingCard, CardProcessingType.CORRECT);
+        flashCardService.processCard(processingCard, CardProcessingType.CORRECT);
+        verify(flashCardTagRepo,times(2)).save(tagCaptor.capture());
+
+        assertEquals(1,tagCaptor.getValue().getUniqueCardsSeenCount());
+    }
+
+    @Test
     public void givenAnCardHasBeenAlreadySeenCardShouldNotIncrementUniqueCardsSeen() {
         FlashCard processingCard = new FlashCard();
         processingCard.setTags(List.of("tag"));

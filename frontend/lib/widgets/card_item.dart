@@ -86,6 +86,7 @@ class _CardItemState extends State<CardItem> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               _buildStatisticsColumn(const FaIcon(FontAwesomeIcons.eye), widget.flashCardTag.cardsSeenCount.toString()),
+              _buildStatisticsColumn(const FaIcon(FontAwesomeIcons.graduationCap), widget.flashCardTag.uniqueCardsSeenCount.toString()),
               _buildStatisticsColumn(const FaIcon(FontAwesomeIcons.clone), widget.flashCardTag.count.toString()),
               _buildStatisticsColumn(
                   const FaIcon(
