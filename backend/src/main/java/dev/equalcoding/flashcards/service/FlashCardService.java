@@ -40,12 +40,13 @@ public class FlashCardService {
     }
 
     public void processCard(FlashCard flashCard, CardProcessingType cardProcessingType) {
-        processTagIncrementation(flashCard, cardProcessingType);
+        processTagCollection(flashCard, cardProcessingType);
         processCardIncrementation(flashCard, cardProcessingType);
         flashCardRepo.save(flashCard);
     }
 
     private void processCardIncrementation(FlashCard flashCard, CardProcessingType cardProcessingType) {
+        flashCard.setSeen(true);
         switch (cardProcessingType) {
             case CORRECT: {
                 flashCard.incrementCorrectCount();
@@ -56,7 +57,7 @@ public class FlashCardService {
         }
     }
 
-    private void processTagIncrementation(FlashCard flashCard, CardProcessingType cardProcessingType) {
+    private void processTagCollection(FlashCard flashCard, CardProcessingType cardProcessingType) {
         flashCard.getTags().forEach(tag -> {
             Optional<FlashCardTag> tagObject = flashCardTagRepo.findById(tag);
             if (tagObject.isPresent()) {
