@@ -1,7 +1,15 @@
 #!/bin/sh
 
-docker rmi flash-cards-flutter -f
-docker rmi flash-cards-java -f
+flutter_image_name="flash-cards-flutter"
+java_image_name="flash-cards-java"
+
+echo "Stopping containers"
+docker stop $(docker ps -a -q  --filter ancestor=$flutter_image_name)
+docker stop $(docker ps -a -q  --filter ancestor=$java_image_name)
+echo "Containers stopped"
+
+docker rmi $flutter_image_name -f
+docker rmi $java_image_name -f
 
 # # start the container stack
 # # (assumes the caller has permission to do this)

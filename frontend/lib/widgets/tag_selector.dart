@@ -41,7 +41,13 @@ class _TagSelectorState extends State<TagSelector> {
         context,
         PageRouteBuilder(
             pageBuilder: (_, __, ___) => CardProcessScreen(tag: tag)),
-      );
+      ).then((_) => {
+        fetchTags().then((value) => (
+          setState(() {
+            tags = value;
+          })
+        ))
+      });
     });
   }
 
