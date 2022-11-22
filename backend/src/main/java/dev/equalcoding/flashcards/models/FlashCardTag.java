@@ -12,6 +12,7 @@ public class FlashCardTag {
     int correctCount;
     int incorrectCount;
     int cardsSeenCount;
+    private int uniqueCardsSeenCount;
 
     public void incrementCorrectCount() {
         correctCount += 1;
@@ -76,5 +77,17 @@ public class FlashCardTag {
 
     public void incrementSeenCount() {
         cardsSeenCount += 1;
+    }
+
+    public void setUniqueCardsSeenCount(int uniqueCardsSeenCount) {
+        this.uniqueCardsSeenCount = uniqueCardsSeenCount;
+    }
+
+    public int getUniqueCardsSeenCount() {
+        return uniqueCardsSeenCount;
+    }
+
+    public void incrementUniqueCardsSeenCount() {
+        uniqueCardsSeenCount += 1;
     }
 }

@@ -184,6 +184,64 @@ class FlashCardServiceTest {
         assertEquals(0,tagCaptor.getValue().getIncorrectCount());
     }
 
+    @Test
+    public void givenAnUnseenCardIsProcessedCorrectlyShouldIncrementUniqueCardsSeenOfTag() {
+        FlashCard processingCard = new FlashCard();
+        processingCard.setTags(List.of("tag"));
+        processingCard.setSeen(false);
+
+        ArgumentCaptor<FlashCardTag> tagCaptor = ArgumentCaptor.forClass(FlashCardTag.class);
+
+        FlashCardTag processingTag = new FlashCardTag();
+        processingTag.setUniqueCardsSeenCount(20);
+
+        given(flashCardTagRepo.findById(anyString())).willReturn(Optional.of(processingTag));
+
+        flashCardService.processCard(processingCard, CardProcessingType.CORRECT);
+        verify(flashCardTagRepo,times(1)).save(tagCaptor.capture());
+
+        assertEquals(21,tagCaptor.getValue().getUniqueCardsSeenCount());
+    }
+
+    @Test
+    public void givenAnUnseenCardIsProcessedIncorrectlyShouldNotIncrementUniqueCardsSeenOfTag() {
+        FlashCard processingCard = new FlashCard();
+        processingCard.setTags(List.of("tag"));
+        processingCard.setSeen(false);
+
+        ArgumentCaptor<FlashCardTag> tagCaptor = ArgumentCaptor.forClass(FlashCardTag.class);
+
+        FlashCardTag processingTag = new FlashCardTag();
+        processingTag.setUniqueCardsSeenCount(20);
+
+        given(flashCardTagRepo.findById(anyString())).willReturn(Optional.of(processingTag));
+
+        flashCardService.processCard(processingCard, CardProcessingType.INCORRECT);
+        verify(flashCardTagRepo,times(1)).save(tagCaptor.capture());
+
+        assertEquals(20,tagCaptor.getValue().getUniqueCardsSeenCount());
+    }
+
+    @Test
+    public void givenAnCardHasBeenAlreadySeenCardShouldNotIncrementUniqueCardsSeen() {
+        FlashCard processingCard = new FlashCard();
+        processingCard.setTags(List.of("tag"));
+        processingCard.setSeen(true);
+
+        ArgumentCaptor<FlashCardTag> tagCaptor = ArgumentCaptor.forClass(FlashCardTag.class);
+
+        FlashCardTag processingTag = new FlashCardTag();
+        processingTag.setUniqueCardsSeenCount(20);
+
+        given(flashCardTagRepo.findById(anyString())).willReturn(Optional.of(processingTag));
+
+        flashCardService.processCard(processingCard, CardProcessingType.CORRECT);
+        verify(flashCardTagRepo,times(1)).save(tagCaptor.capture());
+
+        assertEquals(20,tagCaptor.getValue().getUniqueCardsSeenCount());
+    }
+
+
 
 
     private List<FlashCard> generateFlashcardList() {
