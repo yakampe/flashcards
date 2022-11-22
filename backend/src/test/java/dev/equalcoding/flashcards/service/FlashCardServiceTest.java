@@ -122,6 +122,24 @@ class FlashCardServiceTest {
         assertEquals(21,tagCaptor.getValue().getIncorrectCount());
     }
 
+    @Test
+    public void givenCardProcessedShouldIncrementSeenCountForTag() {
+        FlashCard processingCard = new FlashCard();
+        processingCard.setTags(List.of("tag"));
+
+        ArgumentCaptor<FlashCardTag> tagCaptor = ArgumentCaptor.forClass(FlashCardTag.class);
+
+        FlashCardTag processingTag = new FlashCardTag();
+        processingTag.setCardsSeenCount(200);
+
+        given(flashCardTagRepo.findById(anyString())).willReturn(Optional.of(processingTag));
+
+        flashCardService.processCard(processingCard, CardProcessingType.INCORRECT);
+        verify(flashCardTagRepo,times(1)).save(tagCaptor.capture());
+
+        assertEquals(201,tagCaptor.getValue().getCardsSeenCount());
+    }
+
 
     private List<FlashCard> generateFlashcardList() {
         FlashCard a = new FlashCard();
