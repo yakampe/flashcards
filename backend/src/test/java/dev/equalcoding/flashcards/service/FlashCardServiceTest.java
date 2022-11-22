@@ -1,20 +1,29 @@
 package dev.equalcoding.flashcards.service;
 
 import dev.equalcoding.flashcards.models.FlashCard;
+import dev.equalcoding.flashcards.models.FlashCardTag;
 import dev.equalcoding.flashcards.repo.FlashCardRepo;
+import dev.equalcoding.flashcards.repo.FlashCardTagRepo;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.BDDMockito;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import javax.swing.text.html.Option;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 
 @ExtendWith(MockitoExtension.class)
@@ -22,6 +31,9 @@ class FlashCardServiceTest {
 
     @Mock
     FlashCardRepo flashCardRepo;
+
+    @Mock
+    FlashCardTagRepo flashCardTagRepo;
 
     @InjectMocks
     FlashCardService flashCardService;
@@ -62,6 +74,30 @@ class FlashCardServiceTest {
         assertTrue(actual.size() > 0);
         assertNotEquals(mockedList, actual);
     }
+
+    @Test
+    public void givenCardAnsweredCorrectlyShouldIncreaseCorrectCountForTagAndCard() {
+        FlashCard processingCard = new FlashCard();
+        processingCard.setCorrectCount(10);
+
+
+        ArgumentCaptor<FlashCard> cardCaptor = ArgumentCaptor.forClass(FlashCard.class);
+        ArgumentCaptor<FlashCardTag> tagCaptor = ArgumentCaptor.forClass(FlashCardTag.class);
+
+        FlashCardTag processingTag = new FlashCardTag();
+        processingTag.setCorrectCount(20);
+
+        given(flashCardTagRepo.findById(anyString())).willReturn(Optional.of(processingTag));
+
+        flashCardService.processCard(processingCard);
+        verify(flashCardTagRepo,times(1)).save(tagCaptor.capture());
+        verify(flashCardRepo,times(1)).save(cardCaptor.capture());
+
+        assertEquals(11,cardCaptor.getValue().getCorrectCount());
+        assertEquals(21,tagCaptor.getValue().getCorrectCount());
+
+    }
+
 
     private List<FlashCard> generateFlashcardList() {
         FlashCard a = new FlashCard();

@@ -32,10 +32,14 @@ public class FlashCardService {
                 flashCardTag.setCount(flashCardTag.getCount() + 1);
                 flashCardTagRepo.save(flashCardTag);
             } else {
-                flashCardTagRepo.save(new FlashCardTag(tag, 1));
+                flashCardTagRepo.save(new FlashCardTag(tag, 1, 0, 0 ,0));
             }
         });
         flashCardRepo.save(flashCard);
+    }
+
+    public void processCard(FlashCard flashCard) {
+
     }
 
     public List<FlashCard> getAllCards() {

@@ -13,6 +13,9 @@ public class FlashCard {
     private String question;
     private String answer;
     private List<String> tags;
+    private int correctCount;
+    private int incorrectCount;
+    private boolean seen;
 
     public FlashCard(){};
 
@@ -20,6 +23,34 @@ public class FlashCard {
         this.question = question;
         this.answer = answer;
         this.tags = tags;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public int getCorrectCount() {
+        return correctCount;
+    }
+
+    public void setCorrectCount(int correctCount) {
+        this.correctCount = correctCount;
+    }
+
+    public int getIncorrectCount() {
+        return incorrectCount;
+    }
+
+    public void setIncorrectCount(int incorrectCount) {
+        this.incorrectCount = incorrectCount;
+    }
+
+    public boolean isSeen() {
+        return seen;
+    }
+
+    public void setSeen(boolean seen) {
+        this.seen = seen;
     }
 
     public String getId() {
