@@ -27,7 +27,8 @@ RUN flutter config --enable-web
 RUN mkdir /app/
 COPY . /app/
 WORKDIR /app/
-RUN flutter build web --web-renderer html
+RUN flutter build web --web-renderer canvaskit
+
 
 # Record the exposed port
 EXPOSE 5000

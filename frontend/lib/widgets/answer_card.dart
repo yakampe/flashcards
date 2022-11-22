@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:frontend/widgets/card_stack.dart';
 
 import '../models/flash_card.dart';
@@ -77,7 +78,19 @@ class _AnswerCardState extends State<AnswerCard> with TickerProviderStateMixin {
         child: Column(
           children: [
             Expanded(
-              flex: 3,
+              flex: 1,
+              child: Transform.translate(
+                offset: const Offset(20, -15),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    FaIcon(FontAwesomeIcons.penToSquare),
+                  ],
+                ),
+              ),
+            ),
+            Expanded(
+              flex: 9,
               child: SizedBox(
                 width: double.infinity,
                 child: Scrollbar(
@@ -87,7 +100,7 @@ class _AnswerCardState extends State<AnswerCard> with TickerProviderStateMixin {
                       textAlign: TextAlign.center,
                       softWrap: true,
                       text: TextSpan(
-                        style: const TextStyle(color: Colors.black),
+                          style: const TextStyle(color: Colors.black),
                           text: '${widget.flashCard.answer}'),
                     ),
                   ),
@@ -95,7 +108,7 @@ class _AnswerCardState extends State<AnswerCard> with TickerProviderStateMixin {
               ),
             ),
             Expanded(
-              flex: 1,
+              flex: 3,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -137,9 +150,7 @@ class _AnswerCardState extends State<AnswerCard> with TickerProviderStateMixin {
   void throwCardAway(FlashCard flashCard, bool isCorrect) {
     setState(() {
       offset = Offset(
-          MediaQueryData.fromWindow(WidgetsBinding.instance.window)
-                      .size
-                      .width /
+          MediaQueryData.fromWindow(WidgetsBinding.instance.window).size.width /
                   2 /
                   cardWidth +
               0.5,
