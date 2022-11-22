@@ -140,6 +140,24 @@ class FlashCardServiceTest {
         assertEquals(201,tagCaptor.getValue().getCardsSeenCount());
     }
 
+    @Test
+    public void givenCardAnsweredShouldSetAsSeen() {
+        FlashCard processingCard = new FlashCard();
+        processingCard.setTags(List.of("tag"));
+        processingCard.setSeen(false);
+
+
+        ArgumentCaptor<FlashCard> cardCaptor = ArgumentCaptor.forClass(FlashCard.class);
+        FlashCardTag processingTag = new FlashCardTag();
+        given(flashCardTagRepo.findById(anyString())).willReturn(Optional.of(processingTag));
+
+        flashCardService.processCard(processingCard, CardProcessingType.INCORRECT);
+        verify(flashCardRepo,times(1)).save(cardCaptor.capture());
+
+        assertTrue(cardCaptor.getValue().isSeen());
+    }
+
+
 
     private List<FlashCard> generateFlashcardList() {
         FlashCard a = new FlashCard();
