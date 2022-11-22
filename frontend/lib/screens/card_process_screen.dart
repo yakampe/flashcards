@@ -8,7 +8,8 @@ import '../widgets/app_bar_actions.dart';
 
 class CardProcessScreen extends StatelessWidget {
   final String tag;
-  const CardProcessScreen({Key? key, required this.tag}) : super(key: key);
+  final int cardCount;
+  const CardProcessScreen({Key? key, required this.tag, required this.cardCount}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +32,7 @@ class CardProcessScreen extends StatelessWidget {
             ),
             Expanded(
               flex: 5,
-              child: CardStack(tag: tag, count: 22),
+              child: CardStack(tag: tag, cardCount: cardCount),
             ),
           ],
         ),

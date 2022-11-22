@@ -16,9 +16,9 @@ const int rotationAnimationBuffer = 50;
 
 class CardStack extends StatefulWidget {
   final String tag;
-  final int count;
+  final int cardCount;
 
-  const CardStack({Key? key, required this.tag, required this.count})
+  const CardStack({Key? key, required this.tag, required this.cardCount})
       : super(key: key);
 
   @override
@@ -54,7 +54,7 @@ class _CardStackState extends State<CardStack> {
 
   Future<List<FlashCard>> fetchFlashCards() async {
     var uri = Uri.http(
-        'localhost:8080', 'api/flashcards/tags/${widget.tag}', {"count": "10"});
+        'localhost:8080', 'api/flashcards/tags/${widget.tag}', {"count": widget.cardCount.toString()});
     var response = await http.get(uri);
 
     List<dynamic> list = json.decode(response.body);
