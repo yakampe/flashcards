@@ -7,7 +7,8 @@ class CardItem extends StatefulWidget {
   final FlashCardTag flashCardTag;
   final Function selectAction;
 
-  const CardItem({Key? key, required this.flashCardTag, required this.selectAction})
+  const CardItem(
+      {Key? key, required this.flashCardTag, required this.selectAction})
       : super(key: key);
 
   @override
@@ -45,6 +46,7 @@ class _CardItemState extends State<CardItem> {
 
   InkWell _buildCardContentWithHoverEffect() {
     return InkWell(
+      mouseCursor: MouseCursor.defer,
       autofocus: false,
       highlightColor: null,
       focusColor: null,
@@ -82,35 +84,49 @@ class _CardItemState extends State<CardItem> {
           ),
         ),
         Expanded(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              _buildStatisticsColumn(const FaIcon(FontAwesomeIcons.eye), widget.flashCardTag.cardsSeenCount.toString()),
-              _buildStatisticsColumn(const FaIcon(FontAwesomeIcons.graduationCap), widget.flashCardTag.uniqueCardsSeenCount.toString()),
-              _buildStatisticsColumn(const FaIcon(FontAwesomeIcons.clone), widget.flashCardTag.count.toString()),
-              _buildStatisticsColumn(
-                  const FaIcon(
-                    FontAwesomeIcons.check,
-                    color: Colors.green,
-                  ),
-                  widget.flashCardTag.correctCount.toString()),
-              _buildStatisticsColumn(
-                  const FaIcon(
-                    FontAwesomeIcons.xmark,
-                    color: Colors.red,
-                  ),
-                  widget.flashCardTag.incorrectCount.toString()),
-            ],
-          ),
+          child: _buildStatisticsRow(),
         )
       ],
     );
   }
 
-  Column _buildStatisticsColumn(FaIcon icon, String text) {
-    return Column(
+  Row _buildStatisticsRow() {
+    return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [icon, Text(text)],
+      children: [
+        _buildStatisticsColumn(const FaIcon(FontAwesomeIcons.eye),
+            widget.flashCardTag.cardsSeenCount.toString(), "Total Cards Seen"),
+        _buildStatisticsColumn(
+            const FaIcon(FontAwesomeIcons.graduationCap),
+            widget.flashCardTag.uniqueCardsSeenCount.toString(),
+            "Unique Cards Answered correctly"),
+        _buildStatisticsColumn(const FaIcon(FontAwesomeIcons.clone),
+            widget.flashCardTag.count.toString(), "Total Cards"),
+        _buildStatisticsColumn(
+            const FaIcon(
+              FontAwesomeIcons.check,
+              color: Colors.green,
+            ),
+            widget.flashCardTag.correctCount.toString(),
+            "Total Cards Answered Correctly"),
+        _buildStatisticsColumn(
+            const FaIcon(
+              FontAwesomeIcons.xmark,
+              color: Colors.red,
+            ),
+            widget.flashCardTag.incorrectCount.toString(),
+            "Total Cards Answered Incorrectly"),
+      ],
+    );
+  }
+
+  Widget _buildStatisticsColumn(FaIcon icon, String text, String tooltipText) {
+    return Tooltip(
+      message: tooltipText,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [icon, Text(text)],
+      ),
     );
   }
 }

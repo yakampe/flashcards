@@ -78,18 +78,6 @@ class _AnswerCardState extends State<AnswerCard> with TickerProviderStateMixin {
         child: Column(
           children: [
             Expanded(
-              flex: 1,
-              child: Transform.translate(
-                offset: const Offset(20, -15),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    FaIcon(FontAwesomeIcons.penToSquare),
-                  ],
-                ),
-              ),
-            ),
-            Expanded(
               flex: 9,
               child: SizedBox(
                 width: double.infinity,
