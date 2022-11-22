@@ -78,6 +78,7 @@ class FlashCardServiceTest {
     @Test
     public void givenCardAnsweredCorrectlyShouldIncreaseCorrectCountForTagAndCard() {
         FlashCard processingCard = new FlashCard();
+        processingCard.setTags(List.of("tag"));
         processingCard.setCorrectCount(10);
 
 

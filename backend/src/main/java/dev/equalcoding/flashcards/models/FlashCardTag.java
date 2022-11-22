@@ -13,6 +13,10 @@ public class FlashCardTag {
     int incorrectCount;
     int cardsSeenCount;
 
+    public void incrementCorrectCount() {
+        correctCount += 1;
+    }
+
     public FlashCardTag(String tag, int count, int correctCount, int incorrectCount, int cardsSeenCount) {
         this.tag = tag;
         this.count = count;

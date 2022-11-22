@@ -39,7 +39,20 @@ public class FlashCardService {
     }
 
     public void processCard(FlashCard flashCard) {
+        incrementTagCorrectCount(flashCard);
+        flashCard.incrementCorrectCount();
+        flashCardRepo.save(flashCard);
+    }
 
+    private void incrementTagCorrectCount(FlashCard flashCard) {
+        flashCard.getTags().forEach(tag -> {
+            Optional<FlashCardTag> tagObject = flashCardTagRepo.findById(tag);
+            if(tagObject.isPresent()) {
+                FlashCardTag flashCardTag = tagObject.get();
+                flashCardTag.incrementCorrectCount();
+                flashCardTagRepo.save(flashCardTag);
+            }
+        });
     }
 
     public List<FlashCard> getAllCards() {

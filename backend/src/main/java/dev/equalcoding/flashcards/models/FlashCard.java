@@ -17,6 +17,10 @@ public class FlashCard {
     private int incorrectCount;
     private boolean seen;
 
+    public void incrementCorrectCount() {
+        correctCount += 1;
+    }
+
     public FlashCard(){};
 
     public FlashCard(String question, String answer, List<String> tags) {
